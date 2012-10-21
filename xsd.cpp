@@ -2,7 +2,7 @@
 
 XSD::XSD(string filename)
 {
-   
+
 }
 
 XSD::~XSD()

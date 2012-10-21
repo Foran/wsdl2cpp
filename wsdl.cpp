@@ -2,7 +2,7 @@
 
 WSDL::WSDL(string filename)
 {
-   
+
 }
 
 WSDL::~WSDL()

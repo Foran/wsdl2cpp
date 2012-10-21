@@ -9,14 +9,14 @@ using namespace std;
 
 class XSD
 {
- public:
-   XSD(string filename);
-   ~XSD();
-   
- protected:
- private:
-   XSD();
-   XSD(const XSD &source);
+	public:
+		XSD(string filename);
+		~XSD();
+
+	protected:
+	private:
+		XSD();
+		XSD (const XSD &source);
 };
 
 #endif
