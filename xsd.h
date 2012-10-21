@@ -3,7 +3,9 @@
 
 #include <string>
 #include <vector>
-#include <map>
+
+#include <libxml/parser.h>
+#include <libxml/tree.h>
 
 using namespace std;
 
@@ -11,12 +13,15 @@ class XSD
 {
 	public:
 		XSD(string filename);
+		XSD(xmlDocPtr document);
+		XSD(xmlNodePtr node);
 		~XSD();
 
 	protected:
 	private:
 		XSD();
-		XSD (const XSD &source);
+		XSD(const XSD &source);
+		XSD operator=(const XSD &source) const;
 };
 
 #endif

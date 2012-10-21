@@ -10,6 +10,8 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
+#include "wsdl.h"
+
 using namespace std;
 
 #endif

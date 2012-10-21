@@ -5,21 +5,44 @@
 #include <vector>
 #include <map>
 
+#include <libxml/parser.h>
+#include <libxml/tree.h>
+
+#include "wsdlmessage.h"
+#include "wsdlporttype.h"
+
 using namespace std;
 
 class WSDL
 {
 	public:
 		WSDL(string filename);
+		WSDL(xmlDocPtr document);
+		WSDL(xmlNodePtr node);
 		~WSDL();
 
+		vector<string> get_MessageNames();
+		vector<string> get_PortTypeNames();
 	protected:
+		void Load(string filename);
+		void Load(xmlDocPtr document);
+		void Load(xmlNodePtr node);
+		void LoadTypes(xmlNodePtr node);
+		void LoadMessages(xmlNodePtr node);
+		void LoadPortTypes(xmlNodePtr node);
+		void LoadBindings(xmlNodePtr node);
+		void LoadPorts(xmlNodePtr node);
+		void LoadServices(xmlNodePtr node);
 	private:
-		vector<string> mInterfaces;
-		map<string, vector<string> > mOperations;
-		map<string, vector<string> > mOperationReturnTypes;
+		vector<string> mTypes;
+		map<string, WSDLMessage *> mMessages;
+		map<string, WSDLPortType *> mPortTypes;
+		vector<string> mBindings;
+		vector<string> mPorts;
+		vector<string> mServices;
 		WSDL();
 		WSDL(const WSDL &source);
+		WSDL operator=(const WSDL &source) const;
 };
 
 #endif
