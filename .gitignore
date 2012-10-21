@@ -2,3 +2,5 @@
 *.o
 *.d
 wsdl2cpp
+*.kdevelop
+*.kdevelop.filelist
