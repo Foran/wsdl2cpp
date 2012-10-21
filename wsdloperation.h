@@ -15,10 +15,16 @@ class WSDLOperation {
 		~WSDLOperation();
 		
 		string get_Name() const;
+		string get_InputMessageName() const;
+		string get_OutputMessageName() const;
 	protected:
 		void Load(xmlNodePtr node);
+		void LoadInput(xmlNodePtr node);
+		void LoadOutput(xmlNodePtr node);
 	private:
 		string mName;
+		string mInput;
+		string mOutput;
 		WSDLOperation();
 		WSDLOperation(const WSDLOperation &source);
 		WSDLOperation operator=(const WSDLOperation &source) const;
