@@ -18,8 +18,11 @@ class WSDLPortType {
 		~WSDLPortType();
 		
 		string get_Name() const;
+		vector<string> get_OperationNames();
+		WSDLOperation& get_Operation(string name) const;
 	protected:
 		void Load(xmlNodePtr node);
+		void LoadOperations(xmlNodePtr node);
 	private:
 		string mName;
 		map<string, WSDLOperation *> mOperations;

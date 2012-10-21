@@ -47,6 +47,16 @@ vector<string> WSDL::get_PortTypeNames()
 	return retval;
 }
 
+WSDLMessage& WSDL::get_Message(string name) const
+{
+	return *(const_cast<WSDL *>(this)->mMessages[name]);
+}
+
+WSDLPortType& WSDL::get_PortType(string name) const
+{
+	return *(const_cast<WSDL *>(this)->mPortTypes[name]);
+}
+
 void WSDL::Load(string filename)
 {
 	xmlDoc *doc = xmlReadFile(filename.c_str(), NULL, 0);

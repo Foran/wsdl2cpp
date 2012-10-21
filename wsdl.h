@@ -23,6 +23,8 @@ class WSDL
 
 		vector<string> get_MessageNames();
 		vector<string> get_PortTypeNames();
+		WSDLMessage& get_Message(string name) const;
+		WSDLPortType& get_PortType(string name) const;
 	protected:
 		void Load(string filename);
 		void Load(xmlDocPtr document);
