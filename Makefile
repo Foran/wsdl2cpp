@@ -1,5 +1,5 @@
 Q = @
-OBJS=	main.o wsdl.o
+OBJS=	main.o wsdl.o xsd.o
 SOURCES=$(OBJS:.o=.cpp)
 DEPENDS=$(SOURCES:.cpp=.d)
 DEFINES=-DDEBUG -DVERSION=\"0.01a\"
