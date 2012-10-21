@@ -11,7 +11,7 @@ int main (int argc, char **argv)
 			cout << "Generating Interface " << *i << ".h..." << endl;
 			vector<string> operationNames = wsdl.get_PortType(*i).get_OperationNames();
 			for(vector<string>::iterator o = operationNames.begin(); o != operationNames.end(); o++) {
-				cout << "Found Operation " << *o << endl;
+				cout << "Found Operation " << wsdl.get_PortType(*i).get_Operation(*o).get_OutputMessageName() << " " << *o << "(" << wsdl.get_PortType(*i).get_Operation(*o).get_InputMessageName() << ")" << endl;
 			}
 		}
 	}
