@@ -7,6 +7,9 @@ WSDLPortType::WSDLPortType(xmlNodePtr node)
 
 WSDLPortType::~WSDLPortType()
 {
+	for(map<string, WSDLOperation *>::iterator i = mOperations.begin(); i != mOperations.end(); i++) {
+		delete i->second;
+	}
 }
 
 string WSDLPortType::get_Name() const
@@ -19,5 +22,6 @@ void WSDLPortType::Load(xmlNodePtr node)
 	xmlChar *name = xmlGetProp(node, (const xmlChar *)"name");
 	if(name != NULL) {
 		mName = (char *)name;
+		xmlFree(name);
 	}
 }

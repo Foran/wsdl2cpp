@@ -1,5 +1,5 @@
 Q = @
-OBJS=	main.o wsdl.o xsd.o wsdlmessage.o wsdlporttype.o
+OBJS=	main.o wsdl.o xsd.o wsdlmessage.o wsdlporttype.o wsdloperation.o
 SOURCES=$(OBJS:.o=.cpp)
 DEPENDS=$(SOURCES:.cpp=.d)
 DEFINES=-DDEBUG -DVERSION=\"0.01a\"

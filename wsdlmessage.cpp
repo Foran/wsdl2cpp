@@ -19,5 +19,6 @@ void WSDLMessage::Load(xmlNodePtr node)
 	xmlChar *name = xmlGetProp(node, (const xmlChar *)"name");
 	if(name != NULL) {
 		mName = (char *)name;
+		xmlFree(name);
 	}
 }

@@ -3,9 +3,12 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 #include <libxml/parser.h>
 #include <libxml/tree.h>
+
+#include "wsdloperation.h"
 
 using namespace std;
 
@@ -19,6 +22,7 @@ class WSDLPortType {
 		void Load(xmlNodePtr node);
 	private:
 		string mName;
+		map<string, WSDLOperation *> mOperations;
 		WSDLPortType();
 		WSDLPortType(const WSDLPortType &source);
 		WSDLPortType operator=(const WSDLPortType &source) const;
