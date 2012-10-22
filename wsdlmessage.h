@@ -8,6 +8,8 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
+#include "wsdlmessagepart.h"
+
 using namespace std;
 
 class WSDLMessage {
