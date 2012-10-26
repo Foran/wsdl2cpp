@@ -1,5 +1,5 @@
 Q = @
-OBJS=	main.o wsdl.o xsd.o wsdlmessage.o wsdlporttype.o wsdloperation.o
+OBJS=	main.o wsdl.o xsd.o wsdlmessage.o wsdlporttype.o wsdloperation.o wsdlmessagepart.o
 SOURCES=$(OBJS:.o=.cpp)
 DEPENDS=$(SOURCES:.cpp=.d)
 DEFINES=-DDEBUG -DVERSION=\"0.01a\"
@@ -48,4 +48,4 @@ mrproper: clean
 	@echo "Removing dependancies..."
 	$(Q)-rm -rf $(DEPENDS) $(TESTDEPENDS)
 	@echo "Removing documentation..."
-	$(Q)-rm -rf documentation/*
+	$(Q)-rm -rf documentation/

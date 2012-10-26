@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include <string.h>
+
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 

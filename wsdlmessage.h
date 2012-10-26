@@ -18,8 +18,11 @@ class WSDLMessage {
 		~WSDLMessage();
 		
 		string get_Name() const;
+		vector<string> get_PartNames();
+		WSDLMessagePart &get_Part(string name) const;
 	protected:
 		void Load(xmlNodePtr node);
+		void LoadParts(xmlNodePtr node);
 	private:
 		string mName;
 		map<string, WSDLMessagePart *> mParts;
