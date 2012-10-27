@@ -36,6 +36,9 @@
     <ClCompile Include="wsdl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="xsdelement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -57,6 +60,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="wsdlmessage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="xsdelement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

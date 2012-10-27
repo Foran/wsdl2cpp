@@ -80,6 +80,7 @@
     <ClCompile Include="wsdlporttype.cpp" />
     <ClCompile Include="wsdpmessagepart.cpp" />
     <ClCompile Include="xsd.cpp" />
+    <ClCompile Include="xsdelement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
@@ -89,6 +90,7 @@
     <ClInclude Include="wsdloperation.h" />
     <ClInclude Include="wsdlporttype.h" />
     <ClInclude Include="xsd.h" />
+    <ClInclude Include="xsdelement.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

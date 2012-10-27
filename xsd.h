@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 #include <libxml/parser.h>
 #include <libxml/tree.h>
@@ -13,7 +14,10 @@
 #else
 	#include <unistd.h>
 	#define GetCurrentDir getcwd
+	#include <libgen.h>
 #endif
+
+#include "xsdelement.h"
 
 using namespace std;
 
@@ -33,9 +37,12 @@ class XSD
 		void Load(xmlDocPtr document);
 		void Load(xmlNodePtr node);
 		void LoadElements(xmlNodePtr node);
+		void LoadImports(xmlNodePtr node);
+		string ResolvePath(string filename);
 	private:
 		string mPath;
 		string mNamespace;
+		map<string, XSDElement *> mElements;
 		XSD();
 		XSD(const XSD &source);
 		XSD operator=(const XSD &source) const;

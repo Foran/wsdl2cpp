@@ -5,3 +5,5 @@ wsdl2cpp
 *.kdevelop
 *.kdevelop.filelist
 documentation/
+Debug/
+*.vcxproj.user
