@@ -10,6 +10,7 @@
 
 #include "wsdlmessage.h"
 #include "wsdlporttype.h"
+#include "xsd.h"
 
 using namespace std;
 
@@ -36,7 +37,7 @@ class WSDL
 		void LoadPorts(xmlNodePtr node);
 		void LoadServices(xmlNodePtr node);
 	private:
-		vector<string> mTypes;
+		map<string, XSD *> mTypes;
 		map<string, WSDLMessage *> mMessages;
 		map<string, WSDLPortType *> mPortTypes;
 		vector<string> mBindings;

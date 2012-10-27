@@ -20,6 +20,9 @@ WSDL::~WSDL()
 	for(map<string, WSDLMessage *>::iterator i = mMessages.begin(); i != mMessages.end(); i++) {
 		delete i->second;
 	}
+	for(map<string, XSD *>::iterator i = mTypes.begin(); i != mTypes.end(); i++) {
+		delete i->second;
+	}
 	for(map<string, WSDLPortType *>::iterator i = mPortTypes.begin(); i != mPortTypes.end(); i++) {
 		delete i->second;
 	}
@@ -86,7 +89,19 @@ void WSDL::Load(xmlNodePtr node)
 
 void WSDL::LoadTypes(xmlNodePtr node)
 {
-
+	for(xmlNode *cur_node = node->children; cur_node != NULL; cur_node = cur_node->next) {
+		if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(cur_node->name, (const xmlChar *)"schema")) {
+			XSD *schema = new XSD(cur_node);
+			if(schema != NULL) {
+				if(schema->get_Namespace().length() > 0) {
+					mTypes[schema->get_Namespace()] = schema;
+				}
+				else {
+					delete schema;
+				}
+			}
+		}
+	}
 }
 
 void WSDL::LoadMessages(xmlNodePtr node)
