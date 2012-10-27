@@ -11,22 +11,22 @@ int main (int argc, char **argv)
 			cout << "Generating Interface " << *i << ".h..." << endl;
 			vector<string> operationNames = wsdl.get_PortType(*i).get_OperationNames();
 			for(vector<string>::iterator o = operationNames.begin(); o != operationNames.end(); o++) {
-			   WSDLMessage *output = &wsdl.get_Message(wsdl.get_PortType(*i).get_Operation(*o).get_OutputMessageName());
-			   vector<string> partNames;
-			   if(output == NULL) partNames.push_back("void");
-			   else partNames = output->get_PartNames();
-			   WSDLMessage *input = &wsdl.get_Message(wsdl.get_PortType(*i).get_Operation(*o).get_InputMessageName());
-			   vector<string> partNames2;
-			   if(input == NULL) partNames2.push_back("void");
-			   else partNames2 = input->get_PartNames();
+				WSDLMessage *output = &wsdl.get_Message(wsdl.get_PortType(*i).get_Operation(*o).get_OutputMessageName());
+				vector<string> partNames;
+				if(output == NULL) partNames.push_back("void");
+				else partNames = output->get_PartNames();
+				WSDLMessage *input = &wsdl.get_Message(wsdl.get_PortType(*i).get_Operation(*o).get_InputMessageName());
+				vector<string> partNames2;
+				if(input == NULL) partNames2.push_back("void");
+				else partNames2 = input->get_PartNames();
 				for(vector<string>::iterator op = partNames.begin(); op != partNames.end(); op++) {
-				   for(vector<string>::iterator ip = partNames2.begin(); ip != partNames2.end(); ip++) {
-				      cout << "Found Operation " << (*op == "void" ? *op : output->get_Part(*op).get_Element()) << " " << *o << "(" << (*ip == "void" ? "" : input->get_Part(*ip).get_Element()) << ")" << endl;
-				   }
+					for(vector<string>::iterator ip = partNames2.begin(); ip != partNames2.end(); ip++) {
+						cout << "Found Operation " << (*op == "void" ? *op : output->get_Part(*op).get_Element()) << " " << *o << "(" << (*ip == "void" ? "" : input->get_Part(*ip).get_Element()) << ")" << endl;
+					}
 				}
 			}
 		}
 	}
-
+	getchar();
 	return retval;
 }

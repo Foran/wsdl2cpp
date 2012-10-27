@@ -39,7 +39,7 @@ void WSDLMessage::Load(xmlNodePtr node)
 	if(name != NULL) {
 		mName = (char *)name;
 		xmlFree(name);
-	   LoadParts(node);
+		LoadParts(node);
 	}
 }
 
