@@ -7,3 +7,4 @@ wsdl2cpp
 documentation/
 Debug/
 *.vcxproj.user
+*.suo
