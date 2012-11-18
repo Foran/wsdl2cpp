@@ -6,7 +6,7 @@ DEFINES=-DDEBUG -DVERSION=\"0.01a\"
 LIBS=-lxml2
 CC=g++
 BIN=wsdl2cpp
-CFLAGS=-Wall -pedantic -g -I/usr/include/libxml2
+CFLAGS=-Wall -pedantic -g -I/usr/include/libxml2 -std=c++0x
 
 .PHONY: all test
 
