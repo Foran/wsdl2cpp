@@ -32,6 +32,8 @@ class XSD
 		~XSD();
 
 		string get_Namespace() const;
+		vector<string> get_ElementNames();
+		XSDElement &get_Element(string name);
 	protected:
 		void Load(string filename);
 		void Load(xmlDocPtr document);

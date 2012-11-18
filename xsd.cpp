@@ -43,6 +43,20 @@ string XSD::get_Namespace() const
 	return mNamespace;
 }
 
+vector<string> XSD::get_ElementNames() 
+{
+   vector<string> retval;
+   
+   return retval;
+}
+
+XSDElement &XSD::get_Element(string name) 
+{
+   XSDElement *retval = new XSDElement(NULL);
+   
+   return *retval;
+}
+
 void XSD::Load(string filename)
 {
 	xmlDoc *doc = xmlReadFile(ResolvePath(filename).c_str(), NULL, 0);
@@ -90,8 +104,7 @@ void XSD::LoadImports(xmlNodePtr node)
 		if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(cur_node->name, (const xmlChar *)"import")) {
 			xmlChar *import = xmlGetProp(node, (const xmlChar *)"schemaLocation");
 			if(import != NULL) {
-				XSD temp((char *)import);
-
+				XSD temp(ResolvePath((char *)import));
 				xmlFree(import);
 			}
 		}
@@ -100,5 +113,10 @@ void XSD::LoadImports(xmlNodePtr node)
 
 string XSD::ResolvePath(string filename)
 {
-	return filename;
+	string retval = "";
+
+	if(filename[0] != '/' && filename[0] != '\\' && filename[1] != ':') retval = mPath;
+	retval += filename;
+
+	return retval;
 }
