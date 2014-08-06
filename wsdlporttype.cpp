@@ -36,7 +36,7 @@ WSDLOperation& WSDLPortType::get_Operation(string name) const
 void WSDLPortType::Load(xmlNodePtr node)
 {
 	xmlChar *name = xmlGetProp(node, (const xmlChar *)"name");
-	if(name != NULL) {
+	if(name != nullptr) {
 		mName = (char *)name;
 		xmlFree(name);
 		LoadOperations(node);
@@ -45,10 +45,10 @@ void WSDLPortType::Load(xmlNodePtr node)
 
 void WSDLPortType::LoadOperations(xmlNodePtr node)
 {
-	for(xmlNode *cur_node = node->children; cur_node != NULL; cur_node = cur_node->next) {
+	for(xmlNode *cur_node = node->children; cur_node != nullptr; cur_node = cur_node->next) {
 		if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(cur_node->name, (const xmlChar *)"operation")) {
 			WSDLOperation *operation = new WSDLOperation(cur_node);
-			if(operation != NULL) {
+			if(operation != nullptr) {
 				if(operation->get_Name().length() > 0) {
 					mOperations[operation->get_Name()] = operation;
 				}

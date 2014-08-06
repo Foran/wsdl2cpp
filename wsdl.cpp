@@ -62,8 +62,8 @@ WSDLPortType& WSDL::get_PortType(string name) const
 
 void WSDL::Load(string filename)
 {
-	xmlDoc *doc = xmlReadFile(filename.c_str(), NULL, 0);
-	if(doc != NULL) {
+	xmlDoc *doc = xmlReadFile(filename.c_str(), nullptr, 0);
+	if(doc != nullptr) {
 		Load(doc);
 		xmlFreeDoc(doc);
 	}
@@ -72,7 +72,7 @@ void WSDL::Load(string filename)
 void WSDL::Load(xmlDocPtr document)
 {
 	xmlNode *node = xmlDocGetRootElement(document);
-	if(node != NULL) {
+	if(node != nullptr) {
 		Load(node);
 	}
 }
@@ -89,10 +89,10 @@ void WSDL::Load(xmlNodePtr node)
 
 void WSDL::LoadTypes(xmlNodePtr node)
 {
-	for(xmlNode *cur_node = node->children; cur_node != NULL; cur_node = cur_node->next) {
+	for(xmlNode *cur_node = node->children; cur_node != nullptr; cur_node = cur_node->next) {
 		if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(cur_node->name, (const xmlChar *)"schema")) {
 			XSD *schema = new XSD(cur_node);
-			if(schema != NULL) {
+			if(schema != nullptr) {
 				if(schema->get_Namespace().length() > 0) {
 					mTypes[schema->get_Namespace()] = schema;
 				}
@@ -106,10 +106,10 @@ void WSDL::LoadTypes(xmlNodePtr node)
 
 void WSDL::LoadMessages(xmlNodePtr node)
 {
-	for(xmlNode *cur_node = node->children; cur_node != NULL; cur_node = cur_node->next) {
+	for(xmlNode *cur_node = node->children; cur_node != nullptr; cur_node = cur_node->next) {
 		if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(cur_node->name, (const xmlChar *)"message")) {
 			WSDLMessage *message = new WSDLMessage(cur_node);
-			if(message != NULL) {
+			if(message != nullptr) {
 				if(message->get_Name().length() > 0) {
 					mMessages[message->get_Name()] = message;
 				}
@@ -123,10 +123,10 @@ void WSDL::LoadMessages(xmlNodePtr node)
 
 void WSDL::LoadPortTypes(xmlNodePtr node)
 {
-	for(xmlNode *cur_node = node->children; cur_node != NULL; cur_node = cur_node->next) {
+	for(xmlNode *cur_node = node->children; cur_node != nullptr; cur_node = cur_node->next) {
 		if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(cur_node->name, (const xmlChar *)"portType")) {
 			WSDLPortType *portType = new WSDLPortType(cur_node);
-			if(portType != NULL) {
+			if(portType != nullptr) {
 				if(portType->get_Name().length() > 0) {
 					mPortTypes[portType->get_Name()] = portType;
 				}

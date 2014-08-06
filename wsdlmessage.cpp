@@ -36,7 +36,7 @@ WSDLMessagePart &WSDLMessage::get_Part(string name) const
 void WSDLMessage::Load(xmlNodePtr node)
 {
 	xmlChar *name = xmlGetProp(node, (const xmlChar *)"name");
-	if(name != NULL) {
+	if(name != nullptr) {
 		mName = (char *)name;
 		xmlFree(name);
 		LoadParts(node);
@@ -45,10 +45,10 @@ void WSDLMessage::Load(xmlNodePtr node)
 
 void WSDLMessage::LoadParts(xmlNodePtr node)
 {
-	for(xmlNode *cur_node = node->children; cur_node != NULL; cur_node = cur_node->next) {
+	for(xmlNode *cur_node = node->children; cur_node != nullptr; cur_node = cur_node->next) {
 		if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(cur_node->name, (const xmlChar *)"part")) {
 			WSDLMessagePart *part = new WSDLMessagePart(cur_node);
-			if(part != NULL) {
+			if(part != nullptr) {
 				if(part->get_Name().length() > 0) {
 					mParts[part->get_Name()] = part;
 				}

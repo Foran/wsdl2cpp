@@ -22,14 +22,14 @@ string WSDLMessagePart::get_Element() const
 void WSDLMessagePart::Load(xmlNodePtr node)
 {
 	xmlChar *name = xmlGetProp(node, (const xmlChar *)"name");
-	if(name != NULL) {
+	if(name != nullptr) {
 		mName = (char *)name;
 		xmlFree(name);
 	}
 	xmlChar *element = xmlGetProp(node, (const xmlChar *)"element");
-	if(element != NULL) {
+	if(element != nullptr) {
 		char *ch;
-		if((ch = strstr((char *)element, ":")) == NULL) ch = (char *)element;
+		if((ch = strstr((char *)element, ":")) == nullptr) ch = (char *)element;
 		else ch++;
 		mElement = ch;
 		xmlFree(element);

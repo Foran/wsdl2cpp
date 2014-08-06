@@ -52,15 +52,15 @@ vector<string> XSD::get_ElementNames()
 
 XSDElement &XSD::get_Element(string name) 
 {
-   XSDElement *retval = new XSDElement(NULL);
+   XSDElement *retval = new XSDElement(nullptr);
    
    return *retval;
 }
 
 void XSD::Load(string filename)
 {
-	xmlDoc *doc = xmlReadFile(ResolvePath(filename).c_str(), NULL, 0);
-	if(doc != NULL) {
+	xmlDoc *doc = xmlReadFile(ResolvePath(filename).c_str(), nullptr, 0);
+	if(doc != nullptr) {
 		Load(doc);
 		xmlFreeDoc(doc);
 	}
@@ -73,7 +73,7 @@ void XSD::Load(xmlDocPtr document)
 void XSD::Load(xmlNodePtr node)
 {
 	xmlChar *name = xmlGetProp(node, (const xmlChar *)"targetNamespace");
-	if(name != NULL) {
+	if(name != nullptr) {
 		mNamespace = (char *)name;
 		xmlFree(name);
 		LoadElements(node);
@@ -83,10 +83,10 @@ void XSD::Load(xmlNodePtr node)
 
 void XSD::LoadElements(xmlNodePtr node)
 {
-	for(xmlNode *cur_node = node->children; cur_node != NULL; cur_node = cur_node->next) {
+	for(xmlNode *cur_node = node->children; cur_node != nullptr; cur_node = cur_node->next) {
 		if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(cur_node->name, (const xmlChar *)"element")) {
 			XSDElement *element = new XSDElement(cur_node);
-			if(element != NULL) {
+			if(element != nullptr) {
 				if(element->get_Name().length() > 0) {
 					mElements[element->get_Name()] = element;
 				}
@@ -100,10 +100,10 @@ void XSD::LoadElements(xmlNodePtr node)
 
 void XSD::LoadImports(xmlNodePtr node)
 {
-	for(xmlNode *cur_node = node->children; cur_node != NULL; cur_node = cur_node->next) {
+	for(xmlNode *cur_node = node->children; cur_node != nullptr; cur_node = cur_node->next) {
 		if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(cur_node->name, (const xmlChar *)"import")) {
 			xmlChar *import = xmlGetProp(node, (const xmlChar *)"schemaLocation");
-			if(import != NULL) {
+			if(import != nullptr) {
 				XSD temp(ResolvePath((char *)import));
 				xmlFree(import);
 			}

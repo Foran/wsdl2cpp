@@ -13,11 +13,11 @@ int main (int argc, char **argv)
 			for(vector<string>::iterator o = operationNames.begin(); o != operationNames.end(); o++) {
 				WSDLMessage *output = &wsdl.get_Message(wsdl.get_PortType(*i).get_Operation(*o).get_OutputMessageName());
 				vector<string> partNames;
-				if(output == NULL) partNames.push_back("void");
+				if(output == nullptr) partNames.push_back("void");
 				else partNames = output->get_PartNames();
 				WSDLMessage *input = &wsdl.get_Message(wsdl.get_PortType(*i).get_Operation(*o).get_InputMessageName());
 				vector<string> partNames2;
-				if(input == NULL) partNames2.push_back("void");
+				if (input == nullptr) partNames2.push_back("void");
 				else partNames2 = input->get_PartNames();
 				for(vector<string>::iterator op = partNames.begin(); op != partNames.end(); op++) {
 					for(vector<string>::iterator ip = partNames2.begin(); ip != partNames2.end(); ip++) {
@@ -27,6 +27,6 @@ int main (int argc, char **argv)
 			}
 		}
 	}
-	getchar();
+	//getchar();
 	return retval;
 }
