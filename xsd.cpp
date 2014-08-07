@@ -102,7 +102,7 @@ void XSD::LoadImports(xmlNodePtr node)
 {
 	for(xmlNode *cur_node = node->children; cur_node != nullptr; cur_node = cur_node->next) {
 		if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(cur_node->name, (const xmlChar *)"import")) {
-			xmlChar *import = xmlGetProp(node, (const xmlChar *)"schemaLocation");
+			xmlChar *import = xmlGetProp(cur_node, (const xmlChar *)"schemaLocation");
 			if(import != nullptr) {
 				XSD temp(ResolvePath((char *)import));
 				xmlFree(import);
@@ -116,6 +116,13 @@ string XSD::ResolvePath(string filename)
 	string retval = "";
 
 	if(filename[0] != '/' && filename[0] != '\\' && filename[1] != ':') retval = mPath;
+	if (retval.length() > 0) {
+#ifdef WIN32
+		retval += '\\';
+#else
+		retval += '/';
+#endif
+	}
 	retval += filename;
 
 	return retval;

@@ -43,9 +43,12 @@ class WSDL
 		vector<string> mBindings;
 		vector<string> mPorts;
 		vector<string> mServices;
+		string mPath;
+
 		WSDL();
 		WSDL(const WSDL &source);
 		WSDL operator=(const WSDL &source) const;
+		string ResolvePath(string filename);
 };
 
 #endif

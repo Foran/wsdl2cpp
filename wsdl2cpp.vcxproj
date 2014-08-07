@@ -78,9 +78,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="wsdl.cpp" />
     <ClCompile Include="wsdlmessage.cpp" />
+    <ClCompile Include="wsdlmessagepart.cpp" />
     <ClCompile Include="wsdloperation.cpp" />
     <ClCompile Include="wsdlporttype.cpp" />
-    <ClCompile Include="wsdpmessagepart.cpp" />
     <ClCompile Include="xsd.cpp" />
     <ClCompile Include="xsdelement.cpp" />
   </ItemGroup>

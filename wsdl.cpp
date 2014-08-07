@@ -64,6 +64,7 @@ void WSDL::Load(string filename)
 {
 	xmlDoc *doc = xmlReadFile(filename.c_str(), nullptr, 0);
 	if(doc != nullptr) {
+		mPath = ResolvePath(filename);
 		Load(doc);
 		xmlFreeDoc(doc);
 	}
@@ -90,14 +91,18 @@ void WSDL::Load(xmlNodePtr node)
 void WSDL::LoadTypes(xmlNodePtr node)
 {
 	for(xmlNode *cur_node = node->children; cur_node != nullptr; cur_node = cur_node->next) {
-		if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(cur_node->name, (const xmlChar *)"schema")) {
-			XSD *schema = new XSD(cur_node);
-			if(schema != nullptr) {
-				if(schema->get_Namespace().length() > 0) {
-					mTypes[schema->get_Namespace()] = schema;
-				}
-				else {
-					delete schema;
+		if (cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(cur_node->name, (const xmlChar *)"types")) {
+			for (xmlNode *sub_node = cur_node->children; sub_node != nullptr; sub_node = sub_node->next) {
+				if (sub_node->type == XML_ELEMENT_NODE && !xmlStrcmp(sub_node->name, (const xmlChar *)"schema")) {
+					XSD *schema = new XSD(sub_node, mPath);
+					if (schema != nullptr) {
+						if (schema->get_Namespace().length() > 0) {
+							mTypes[schema->get_Namespace()] = schema;
+						}
+						else {
+							delete schema;
+						}
+					}
 				}
 			}
 		}
@@ -151,4 +156,9 @@ void WSDL::LoadPorts(xmlNodePtr node)
 void WSDL::LoadServices(xmlNodePtr node)
 {
 
+}
+
+string WSDL::ResolvePath(string filename)
+{
+	return filename.substr(0, filename.find_last_of("/\\"));
 }

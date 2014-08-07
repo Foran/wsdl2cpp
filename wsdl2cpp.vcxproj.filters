@@ -27,9 +27,6 @@
     <ClCompile Include="wsdloperation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="wsdpmessagepart.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="wsdlmessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -37,6 +34,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="xsdelement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wsdlmessagepart.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
