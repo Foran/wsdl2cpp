@@ -19,10 +19,12 @@ class XSDElement
 		XSDElement &operator=(const XSDElement &source);
 
 		string get_Name() const;
-	protected:
+		string get_Type() const;
+protected:
 		void Load(xmlNodePtr node);
 	private:
 		string mName;
+		string mType;
 		XSDElement();
 };
 

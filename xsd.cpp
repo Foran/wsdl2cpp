@@ -9,16 +9,24 @@ XSD::XSD(string filename)
 XSD::XSD(xmlDocPtr document)
 {
 	char path[FILENAME_MAX];
-	GetCurrentDir(path, sizeof(path));
-	mPath = path;
+	if (GetCurrentDir(path, sizeof(path)) > 0) {
+		mPath = path;
+	}
+	else {
+		mPath = "";
+	}
 	Load(document);
 }
 
 XSD::XSD(xmlNodePtr node)
 {
 	char path[FILENAME_MAX];
-	GetCurrentDir(path, sizeof(path));
-	mPath = path;
+	if (GetCurrentDir(path, sizeof(path)) > 0) {
+		mPath = path;
+	}
+	else {
+		mPath = "";
+	}
 	Load(node);
 }
 
@@ -36,6 +44,9 @@ XSD::XSD(xmlNodePtr node, string path)
 
 XSD::~XSD()
 {
+	for (map<string, XSDElement *>::iterator p = mElements.begin(); p != mElements.end(); p++) {
+		delete p->second;
+	}
 }
 
 string XSD::get_Namespace() const
@@ -68,6 +79,9 @@ void XSD::Load(string filename)
 
 void XSD::Load(xmlDocPtr document)
 {
+	if (document != nullptr) {
+		Load(document->children);
+	}
 }
 
 void XSD::Load(xmlNodePtr node)
@@ -117,7 +131,7 @@ string XSD::ResolvePath(string filename)
 
 	if(filename[0] != '/' && filename[0] != '\\' && filename[1] != ':') retval = mPath;
 	if (retval.length() > 0) {
-#ifdef WIN32
+#ifdef _WIN32
 		retval += '\\';
 #else
 		retval += '/';
