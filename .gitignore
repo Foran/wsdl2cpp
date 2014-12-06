@@ -9,3 +9,12 @@ Debug/
 *.vcxproj.user
 *.suo
 ~AutoRecover.wsdl2cpp.vcxproj
+include/
+lib/
+test/CMakeFiles/*
+test/CMakeCache.txt
+test/Makefile
+test/cmake_install.cmake
+test/runTests
+wsdl2cpp.tag
+
