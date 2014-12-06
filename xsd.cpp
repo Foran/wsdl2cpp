@@ -133,7 +133,20 @@ void XSD::LoadImports(xmlNodePtr node)
 
 string XSD::ResolvePath(string filename)
 {
-	return filename.substr(0, filename.find_last_of("/\\"));
+	string retval = filename.substr(0, filename.find_last_of("/\\"));
+	if (filename[0] != '/' && filename[0] != '\\' && filename[1] != ':') {
+		char path[FILENAME_MAX];
+		if (GetCurrentDir(path, sizeof(path)) > 0) {
+			string temp = path;
+#ifdef _WIN32
+			temp += '\\';
+#else
+			temp += '/';
+#endif
+			retval = temp + retval;
+		}
+	}
+	return retval;
 }
 
 string XSD::ResolveFilename(string filename)
@@ -151,7 +164,9 @@ string XSD::ResolveFilename(string filename)
 #ifdef _WIN32
 	else std::replace(filename.begin(), filename.end(), '/', '\\');
 #endif
-	retval += filename;
+	size_t pos = filename.find_last_of("/\\");
+	if(pos == string::npos) retval += filename;
+	else retval += filename.substr(pos + 1, filename.length() - pos - 1);
 
 	return retval;
 }
