@@ -8,3 +8,4 @@ documentation/
 Debug/
 *.vcxproj.user
 *.suo
+~AutoRecover.wsdl2cpp.vcxproj
