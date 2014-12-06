@@ -87,6 +87,7 @@
   <ItemGroup>
     <ClInclude Include="main.h" />
     <ClInclude Include="wsdl.h" />
+    <ClInclude Include="wsdl2cpp_client.h" />
     <ClInclude Include="wsdlmessage.h" />
     <ClInclude Include="wsdlmessagepart.h" />
     <ClInclude Include="wsdloperation.h" />

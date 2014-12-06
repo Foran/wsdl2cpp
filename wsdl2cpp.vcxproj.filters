@@ -65,5 +65,8 @@
     <ClInclude Include="xsdelement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="wsdl2cpp_client.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
