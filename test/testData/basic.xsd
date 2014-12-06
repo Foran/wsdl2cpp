@@ -39,4 +39,5 @@
             <xs:sequence/>
         </xs:complexType>
     </xs:element>
+	<xs:element name="BasicType" type="xs:string" />
 </xs:schema>

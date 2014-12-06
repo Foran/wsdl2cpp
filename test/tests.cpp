@@ -4,7 +4,7 @@
 
 TEST(XSDTest, XSDLoadElementCount) { 
    XSD xsd("testData/basic.xsd");
-   ASSERT_EQ(3, xsd.get_ElementNames().size());
+   ASSERT_EQ(4, xsd.get_ElementNames().size());
 }
 
 int main(int argc, char **argv) {
