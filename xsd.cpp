@@ -57,7 +57,9 @@ string XSD::get_Namespace() const
 vector<string> XSD::get_ElementNames() 
 {
    vector<string> retval;
-   
+   for (auto entry : mElements) {
+	   retval.push_back(entry.first);
+   }
    return retval;
 }
 
@@ -70,7 +72,8 @@ XSDElement &XSD::get_Element(string name)
 
 void XSD::Load(string filename)
 {
-	xmlDoc *doc = xmlReadFile(ResolvePath(filename).c_str(), nullptr, 0);
+	mPath = ResolvePath(filename);
+	xmlDoc *doc = xmlReadFile(ResolveFilename(filename).c_str(), nullptr, 0);
 	if(doc != nullptr) {
 		Load(doc);
 		xmlFreeDoc(doc);
@@ -118,8 +121,11 @@ void XSD::LoadImports(xmlNodePtr node)
 		if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(cur_node->name, (const xmlChar *)"import")) {
 			xmlChar *import = xmlGetProp(cur_node, (const xmlChar *)"schemaLocation");
 			if(import != nullptr) {
-				XSD temp(ResolvePath((char *)import));
+				XSD temp(ResolveFilename((char *)import));
 				xmlFree(import);
+				for (string element : temp.get_ElementNames()) {
+					mElements[element] = new XSDElement(temp.get_Element(element));
+				}
 			}
 		}
 	}
@@ -127,16 +133,24 @@ void XSD::LoadImports(xmlNodePtr node)
 
 string XSD::ResolvePath(string filename)
 {
+	return filename.substr(0, filename.find_last_of("/\\"));
+}
+
+string XSD::ResolveFilename(string filename)
+{
 	string retval = "";
 
-	if(filename[0] != '/' && filename[0] != '\\' && filename[1] != ':') retval = mPath;
-	if (retval.length() > 0) {
+	if(filename[0] != '/' && filename[0] != '\\' && filename[1] != ':') {
+		retval = mPath;
 #ifdef _WIN32
 		retval += '\\';
 #else
 		retval += '/';
 #endif
 	}
+#ifdef _WIN32
+	else std::replace(filename.begin(), filename.end(), '/', '\\');
+#endif
 	retval += filename;
 
 	return retval;

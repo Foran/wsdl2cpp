@@ -1,6 +1,7 @@
 #ifndef __XSD_H__
 #define __XSD_H__
 
+#include <algorithm>
 #include <string>
 #include <vector>
 #include <map>
@@ -41,6 +42,7 @@ class XSD
 		void LoadElements(xmlNodePtr node);
 		void LoadImports(xmlNodePtr node);
 		string ResolvePath(string filename);
+		string ResolveFilename(string filename);
 	private:
 		string mPath;
 		string mNamespace;
