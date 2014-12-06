@@ -39,6 +39,12 @@
     <ClCompile Include="wsdlmessagepart.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="xsdsimpletype.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xsdcomplextype.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -66,6 +72,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="wsdl2cpp_client.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="xsdsimpletype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="xsdcomplextype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

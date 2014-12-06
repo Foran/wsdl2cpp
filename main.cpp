@@ -9,6 +9,13 @@ int main (int argc, char **argv)
 		vector<string> portTypeNames = wsdl.get_PortTypeNames();
 		for(vector<string>::iterator i = portTypeNames.begin(); i != portTypeNames.end(); i++) {
 			cout << "Generating Interface " << *i << ".h..." << endl;
+			cout << "Generating Types..." << endl;
+			for (string ns : wsdl.get_TypeNamespaces()) {
+				for (string name : wsdl.get_Type(ns).get_ElementNames()) {
+					cout << wsdl.get_Type(ns).get_Element(name).get_Type() << " " << wsdl.get_Type(ns).get_Element(name).get_Name() << endl;
+				}
+			}
+			cout << "Generating Operations..." << endl;
 			vector<string> operationNames = wsdl.get_PortType(*i).get_OperationNames();
 			for(vector<string>::iterator o = operationNames.begin(); o != operationNames.end(); o++) {
 				WSDLMessage *output = &wsdl.get_Message(wsdl.get_PortType(*i).get_Operation(*o).get_OutputMessageName());

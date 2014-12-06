@@ -43,7 +43,18 @@ vector<string> WSDL::get_PortTypeNames()
 {
 	vector<string> retval;
 
-	for(map<string, WSDLPortType *>::iterator i = mPortTypes.begin(); i != mPortTypes.end(); i++) {
+	for (map<string, WSDLPortType *>::iterator i = mPortTypes.begin(); i != mPortTypes.end(); i++) {
+		retval.push_back(i->first);
+	}
+
+	return retval;
+}
+
+vector<string> WSDL::get_TypeNamespaces()
+{
+	vector<string> retval;
+
+	for (map<string, XSD *>::iterator i = mTypes.begin(); i != mTypes.end(); i++) {
 		retval.push_back(i->first);
 	}
 
@@ -58,6 +69,11 @@ WSDLMessage& WSDL::get_Message(string name) const
 WSDLPortType& WSDL::get_PortType(string name) const
 {
 	return *(const_cast<WSDL *>(this)->mPortTypes[name]);
+}
+
+XSD& WSDL::get_Type(string ns) const
+{
+	return *(const_cast<WSDL *>(this)->mTypes[ns]);
 }
 
 void WSDL::Load(string filename)
