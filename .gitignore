@@ -15,6 +15,7 @@ test/CMakeFiles/*
 test/CMakeCache.txt
 test/Makefile
 test/cmake_install.cmake
-test/runTests
+test/runXSDUnitTests
+test/runWSDLUnitTests
 wsdl2cpp.tag
 
