@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://wsdl2cpp.foransrealm.com/schemas/unitTest/service/basic/2014/12/06"
+    xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy"
+    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+    xmlns:wsa10="http://www.w3.org/2005/08/addressing" targetNamespace="http://wsdl2cpp.foransrealm.com/schemas/unitTest/service/basic/2014/12/06" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:types>
+        <xs:schema targetNamespace="http://wsdl2cpp.foransrealm.com/schemas/unitTest/service/basic/2014/12/06" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:element name="foo" type="xs:string" />
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="IBasicService_HelloWorld_InputMessage">
+        <wsdl:part name="HelloWorldRequest" element="tns:foo"/>
+    </wsdl:message>
+    <wsdl:message name="IBasicService_HelloWorld_OutputMessage">
+        <wsdl:part name="HelloWorldResponse" element="tns:foo"/>
+    </wsdl:message>
+    <wsdl:portType name="IBasicService">
+        <wsdl:operation name="HelloWorld">
+            <wsdl:input wsaw:Action="http://wsdl2cpp.foransrealm.com/schemas/unitTest/service/basic/2014/12/06/IBasicService/HelloWorld" message="tns:IBasicService_HelloWorld_InputMessage"/>
+            <wsdl:output wsaw:Action="http://wsdl2cpp.foransrealm.com/schemas/unitTest/service/basic/2014/12/06/IBasicService/HelloWorld" message="tns:IBasicService_HelloWorld_OutputMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+  <wsdl:binding name="BasicServiceBinding" type="tns:IBasicService">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="HelloWorld">
+      <soap12:operation soapAction="http://wsdl2cpp.foransrealm.com/schemas/unitTest/service/basic/2014/12/06/IBasicService/HelloWorld" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="BasicService">
+    <wsdl:port name="BasicServicePort" binding="tns:BasicServiceBinding">
+      <soap12:address location="http://localhost/Service"/>
+      <wsa10:EndpointReference>
+        <wsa10:Address>http://localhost/Service</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
