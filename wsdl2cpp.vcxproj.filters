@@ -45,6 +45,9 @@
     <ClCompile Include="xsdcomplextype.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="typegenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -78,6 +81,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="xsdcomplextype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="typegenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

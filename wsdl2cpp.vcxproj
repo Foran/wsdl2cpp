@@ -76,6 +76,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="typegenerator.cpp" />
     <ClCompile Include="wsdl.cpp" />
     <ClCompile Include="wsdlmessage.cpp" />
     <ClCompile Include="wsdlmessagepart.cpp" />
@@ -88,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
+    <ClInclude Include="typegenerator.h" />
     <ClInclude Include="wsdl.h" />
     <ClInclude Include="wsdl2cpp_client.h" />
     <ClInclude Include="wsdlmessage.h" />
