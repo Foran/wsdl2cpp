@@ -1,15 +1,16 @@
 Q = @
 OBJS=	main.o wsdl.o xsd.o wsdlmessage.o wsdlporttype.o \
 	wsdloperation.o wsdlmessagepart.o xsdelement.o \
-	xsdsimpletype.o xsdcomplextype.o
+	xsdsimpletype.o xsdcomplextype.o civetweb.o
 SOURCES=$(OBJS:.o=.cpp)
 DEPENDS=$(SOURCES:.cpp=.d)
 DEFINES=-DDEBUG -DVERSION=\"0.01a\"
-LIBS=-lxml2
+LIBS=-lxml2 -ldl -lpthread
+INCLUDES=-I/usr/include/libxml2 -Icivetweb/include
 CC=g++
 BIN=wsdl2cpp
-CFLAGS=-Wall -pedantic -g -I/usr/include/libxml2 -std=c++0x
-
+CFLAGS=-Wall -g $(INCLUDES)
+CPPFLAGS=$(CFLAGS) -pedantic -std=c++0x
 .PHONY: all test
 
 all: $(BIN)
@@ -30,9 +31,13 @@ $(TESTBIN):$(TESTOBJS)
 	@echo FORCING DEPENDENCY CHECK - HEADERFILE $@ MISSING
 	$(Q)rm -f *.d
 
+civetweb.o: civetweb/src/civetweb.c civetweb/include/civetweb.h
+	@echo "Compiling $<..."
+	$(CC) $(CFLAGS) -x c -c $< -o $@
+
 %.o: %.cpp %.d
 	@echo "Compiling $<..."
-	$(Q)$(CC) $(CFLAGS) $(DEFINES) -c $< -o $@
+	$(Q)$(CC) $(CPPFLAGS) $(DEFINES) -c $< -o $@
 	@cppcheck $<
 
 %.d: %.cpp
