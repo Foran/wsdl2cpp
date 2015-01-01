@@ -11,6 +11,7 @@
 #include <libxml/tree.h>
 
 #include "wsdl.h"
+#include "path.h"
 
 using namespace std;
 

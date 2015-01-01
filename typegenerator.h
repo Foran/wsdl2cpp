@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __TYPEGENERATOR_H__
+#define __TYPEGENERATOR_H__
 
 #include <string>
 
@@ -14,3 +15,5 @@ public:
 protected:
 private:
 };
+
+#endif

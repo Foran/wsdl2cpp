@@ -110,8 +110,8 @@ XSDComplexType &XSD::get_ComplexType(string name)
 
 void XSD::Load(string filename)
 {
-	mPath = ResolvePath(filename);
-	xmlDoc *doc = xmlReadFile(ResolveFilename(filename).c_str(), nullptr, 0);
+	mPath = Path::get_Absolute(filename);
+	xmlDoc *doc = xmlReadFile(Path::get_UNC(filename).c_str(), nullptr, 0);
 	if(doc != nullptr) {
 		Load(doc);
 		xmlFreeDoc(doc);
@@ -194,7 +194,7 @@ void XSD::LoadImports(xmlNodePtr node)
 		if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(cur_node->name, (const xmlChar *)"import")) {
 			xmlChar *import = xmlGetProp(cur_node, (const xmlChar *)"schemaLocation");
 			if(import != nullptr) {
-				XSD temp(ResolveFilename((char *)import));
+				XSD temp(Path::get_UNC((char *)import));
 				xmlFree(import);
 				for (string element : temp.get_ElementNames()) {
 					mElements[element] = new XSDElement(temp.get_Element(element));
@@ -205,44 +205,4 @@ void XSD::LoadImports(xmlNodePtr node)
 			}
 		}
 	}
-}
-
-string XSD::ResolvePath(string filename)
-{
-	string retval = filename.substr(0, filename.find_last_of("/\\"));
-	if (filename[0] != '/' && filename[0] != '\\' && filename[1] != ':') {
-		char path[FILENAME_MAX];
-		if (GetCurrentDir(path, sizeof(path)) > 0) {
-			string temp = path;
-#ifdef _WIN32
-			temp += '\\';
-#else
-			temp += '/';
-#endif
-			retval = temp + retval;
-		}
-	}
-	return retval;
-}
-
-string XSD::ResolveFilename(string filename)
-{
-	string retval = "";
-
-	if(filename[0] != '/' && filename[0] != '\\' && filename[1] != ':') {
-		retval = mPath;
-#ifdef _WIN32
-		retval += '\\';
-#else
-		retval += '/';
-#endif
-	}
-#ifdef _WIN32
-	else std::replace(filename.begin(), filename.end(), '/', '\\');
-#endif
-	size_t pos = filename.find_last_of("/\\");
-	if (pos == string::npos || (filename[0] == '.' && filename[1] == '.') || filename[0] == '/' || filename[0] == '\\' || filename[1] == ':') retval += filename;
-	else retval += filename.substr(pos + 1, filename.length() - pos - 1);
-
-	return retval;
 }

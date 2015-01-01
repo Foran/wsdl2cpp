@@ -9,18 +9,11 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
-#ifdef _WIN32
-	#include <direct.h>
-	#define GetCurrentDir _getcwd
-#else
-	#include <unistd.h>
-	#define GetCurrentDir getcwd
-	#include <libgen.h>
-#endif
-
 #include "xsdelement.h"
 #include "xsdsimpletype.h"
 #include "xsdcomplextype.h"
+
+#include "path.h"
 
 using namespace std;
 
@@ -49,8 +42,6 @@ protected:
 		void LoadSimpleTypes(xmlNodePtr node);
 		void LoadComplexTypes(xmlNodePtr node);
 		void LoadImports(xmlNodePtr node);
-		string ResolvePath(string filename);
-		string ResolveFilename(string filename);
 	private:
 		string mPath;
 		string mNamespace;

@@ -1,39 +1,60 @@
 #include "main.h"
 
+void DisplayHelp(int argc, char **argv)
+{
+	cout << "Usage: " << argv[0] << " [options] filename" << endl;
+	cout << "Options:" << endl;
+	cout << "\t" << "-h, --help" << "\t" << "Display Help" << endl;
+}
+
+vector<string> Filenames;
+
+bool ParseCmdLine(int argc, char **argv)
+{
+	bool retval = true;
+	if (argc == 1) {
+		DisplayHelp(argc, argv);
+		retval = false;
+	}
+	else {
+		bool lastArg = false;
+		for (int i = 1; retval && i < argc; i++) {
+			if (!lastArg && argv[i][0] == '-') {
+				if (argv[i][1] != '\0' && argv[i][2] == '\0') {
+					switch (argv[i][1]) {
+						case 'h':
+							DisplayHelp(argc, argv);
+							retval = false;
+							break;
+						case '-':
+							lastArg = true;
+							break;
+					}
+				}
+				else if (!strncmp("--help", argv[i], 7)) {
+					DisplayHelp(argc, argv);
+					retval = false;
+				}
+			}
+			else {
+				Filenames.push_back(Path::get_UNC(argv[i]));
+			}
+		}
+	}
+	return retval;
+}
+
 int main (int argc, char **argv)
 {
 	int retval = 0;
 
-	for(int c = 1; c < argc; c++) {
-		WSDL wsdl(argv[c]);
-		vector<string> portTypeNames = wsdl.get_PortTypeNames();
-		for(vector<string>::iterator i = portTypeNames.begin(); i != portTypeNames.end(); i++) {
-			cout << "Generating Interface " << *i << ".h..." << endl;
-			cout << "Generating Types..." << endl;
-			for (string ns : wsdl.get_TypeNamespaces()) {
-				for (string name : wsdl.get_Type(ns).get_ElementNames()) {
-					cout << wsdl.get_Type(ns).get_Element(name).get_Type() << " " << wsdl.get_Type(ns).get_Element(name).get_Name() << endl;
-				}
-			}
-			cout << "Generating Operations..." << endl;
-			vector<string> operationNames = wsdl.get_PortType(*i).get_OperationNames();
-			for(vector<string>::iterator o = operationNames.begin(); o != operationNames.end(); o++) {
-				WSDLMessage *output = &wsdl.get_Message(wsdl.get_PortType(*i).get_Operation(*o).get_OutputMessageName());
-				vector<string> partNames;
-				if(output == nullptr) partNames.push_back("void");
-				else partNames = output->get_PartNames();
-				WSDLMessage *input = &wsdl.get_Message(wsdl.get_PortType(*i).get_Operation(*o).get_InputMessageName());
-				vector<string> partNames2;
-				if (input == nullptr) partNames2.push_back("void");
-				else partNames2 = input->get_PartNames();
-				for(vector<string>::iterator op = partNames.begin(); op != partNames.end(); op++) {
-					for(vector<string>::iterator ip = partNames2.begin(); ip != partNames2.end(); ip++) {
-						cout << "Found Operation " << (*op == "void" ? *op : output->get_Part(*op).get_Element()) << " " << *o << "(" << (*ip == "void" ? "" : input->get_Part(*ip).get_Element()) << ")" << endl;
-					}
-				}
-			}
+	if (ParseCmdLine(argc, argv)) {
+		for(string filename : Filenames) {
+			cout << filename << endl;
+			WSDL wsdl(filename);
+
 		}
 	}
-	getchar();
+
 	return retval;
 }

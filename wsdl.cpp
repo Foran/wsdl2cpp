@@ -80,7 +80,7 @@ void WSDL::Load(string filename)
 {
 	xmlDoc *doc = xmlReadFile(filename.c_str(), nullptr, 0);
 	if(doc != nullptr) {
-		mPath = ResolvePath(filename);
+		mPath = filename;
 		Load(doc);
 		xmlFreeDoc(doc);
 	}
@@ -110,7 +110,7 @@ void WSDL::LoadTypes(xmlNodePtr node)
 		if (cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(cur_node->name, (const xmlChar *)"types")) {
 			for (xmlNode *sub_node = cur_node->children; sub_node != nullptr; sub_node = sub_node->next) {
 				if (sub_node->type == XML_ELEMENT_NODE && !xmlStrcmp(sub_node->name, (const xmlChar *)"schema")) {
-					XSD *schema = new XSD(sub_node, mPath);
+					XSD *schema = new XSD(sub_node, mPath.get_UNC());
 					if (schema != nullptr) {
 						if (schema->get_Namespace().length() > 0) {
 							mTypes[schema->get_Namespace()] = schema;

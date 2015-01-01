@@ -45,7 +45,7 @@ class WSDL
 		vector<string> mBindings;
 		vector<string> mPorts;
 		vector<string> mServices;
-		string mPath;
+		Path mPath;
 
 		WSDL();
 		WSDL(const WSDL &source);
