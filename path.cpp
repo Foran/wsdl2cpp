@@ -62,7 +62,7 @@ string Path::get_Raw() const
 
 string Path::CurrentDirectory()
 {
-	string retval = nullptr;
+	string retval = "";
 	char path[FILENAME_MAX];
 
 	if (GetCurrentDir(path, sizeof(path)) > 0) {
