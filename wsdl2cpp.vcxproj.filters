@@ -48,6 +48,9 @@
     <ClCompile Include="typegenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="civetweb\src\civetweb.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -84,6 +87,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="typegenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="civetweb\include\civetweb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

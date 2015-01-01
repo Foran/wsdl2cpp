@@ -1,7 +1,8 @@
 Q = @
 OBJS=	main.o wsdl.o xsd.o wsdlmessage.o wsdlporttype.o \
 	wsdloperation.o wsdlmessagepart.o xsdelement.o \
-	xsdsimpletype.o xsdcomplextype.o civetweb.o
+	xsdsimpletype.o xsdcomplextype.o typegenerator.o \
+	civetweb.o
 SOURCES=$(OBJS:.o=.cpp)
 DEPENDS=$(SOURCES:.cpp=.d)
 DEFINES=-DDEBUG -DVERSION=\"0.01a\"
