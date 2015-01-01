@@ -17,5 +17,6 @@ test/Makefile
 test/cmake_install.cmake
 test/runXSDUnitTests
 test/runWSDLUnitTests
+test/runPathUnitTests
 wsdl2cpp.tag
 
