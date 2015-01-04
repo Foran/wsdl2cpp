@@ -25,6 +25,8 @@ public:
 	static string get_Absolute(const string &path);
 	string get_BaseFilename() const;
 	static string get_BaseFilename(const string &path);
+	string get_BasePath() const;
+	static string get_BasePath(const string &path);
 	string get_UNC() const;
 	static string get_UNC(const string &path);
 	Path ResolveRelative(const string &relative) const;

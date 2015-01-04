@@ -1,5 +1,7 @@
 #include "wsdl.h"
 
+#include "curl/curl.h"
+
 WSDL::WSDL(string filename)
 {
 	Load(filename);
@@ -76,11 +78,38 @@ XSD& WSDL::get_Type(string ns) const
 	return *(const_cast<WSDL *>(this)->mTypes[ns]);
 }
 
+size_t WSDL::curl_write_callback(char *ptr, size_t size, size_t nmemb, void *userdata)
+{
+	((string *)userdata)->append(ptr, size * nmemb);
+	return size * nmemb;
+}
+
+string WSDL::FetchFile(const Path &unc) const
+{
+	string retval = "";
+	CURL *ch = curl_easy_init();
+	if (ch) {
+		curl_easy_setopt(ch, CURLOPT_URL, unc.get_UNC().c_str());
+		curl_easy_setopt(ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_easy_setopt(ch, CURLOPT_SSL_VERIFYHOST, false);
+		curl_easy_setopt(ch, CURLOPT_WRITEDATA, &retval);
+		curl_easy_setopt(ch, CURLOPT_WRITEFUNCTION, WSDL::curl_write_callback);
+		if (CURLE_OK != curl_easy_perform(ch)) {
+			retval = "";
+		}
+		curl_easy_cleanup(ch);
+	}
+
+	return retval;
+}
+
 void WSDL::Load(string filename)
 {
-	xmlDoc *doc = xmlReadFile(filename.c_str(), nullptr, 0);
-	if(doc != nullptr) {
-		mPath = filename;
+	Path path(filename);
+	string buffer = FetchFile(path);
+	xmlDoc *doc = xmlReadMemory(buffer.c_str(), buffer.length(), "noname.xml", nullptr, 0);
+	if (doc != nullptr) {
+		mPath = path;
 		Load(doc);
 		xmlFreeDoc(doc);
 	}
@@ -96,6 +125,7 @@ void WSDL::Load(xmlDocPtr document)
 
 void WSDL::Load(xmlNodePtr node)
 {
+	LoadImports(node);
 	LoadTypes(node);
 	LoadMessages(node);
 	LoadPortTypes(node);
@@ -104,9 +134,48 @@ void WSDL::Load(xmlNodePtr node)
 	LoadServices(node);
 }
 
+void WSDL::LoadImports(xmlNodePtr node)
+{
+	for (xmlNode *cur_node = node->children; cur_node != nullptr; cur_node = cur_node->next) {
+		if (cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(cur_node->name, (const xmlChar *)"import")) {
+			string location;
+			xmlChar *xmlLocation = xmlGetProp(cur_node, (const xmlChar *)"location");
+			if (xmlLocation != nullptr) {
+				location = (char *)xmlLocation;
+				xmlFree(xmlLocation);
+			}
+			WSDL wsdl(Path::ResolveRelative(mPath.get_BasePath(), location).get_UNC());
+			for (string binding : wsdl.mBindings) {
+				mBindings.push_back(binding);
+			}
+			wsdl.mBindings.clear();
+			for (auto message_entry : wsdl.mMessages) {
+				mMessages[message_entry.first] = message_entry.second;
+			}
+			wsdl.mMessages.clear();
+			for (string port : wsdl.mPorts) {
+				mPorts.push_back(port);
+			}
+			wsdl.mPorts.clear();
+			for (auto porttype_entry : wsdl.mPortTypes) {
+				mPortTypes[porttype_entry.first] = porttype_entry.second;
+			}
+			wsdl.mPortTypes.clear();
+			for (string service : wsdl.mServices) {
+				mServices.push_back(service);
+			}
+			wsdl.mServices.clear();
+			for (auto type_entry : wsdl.mTypes) {
+				mTypes[type_entry.first] = type_entry.second;
+			}
+			wsdl.mTypes.clear();
+		}
+	}
+}
+
 void WSDL::LoadTypes(xmlNodePtr node)
 {
-	for(xmlNode *cur_node = node->children; cur_node != nullptr; cur_node = cur_node->next) {
+	for (xmlNode *cur_node = node->children; cur_node != nullptr; cur_node = cur_node->next) {
 		if (cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(cur_node->name, (const xmlChar *)"types")) {
 			for (xmlNode *sub_node = cur_node->children; sub_node != nullptr; sub_node = sub_node->next) {
 				if (sub_node->type == XML_ELEMENT_NODE && !xmlStrcmp(sub_node->name, (const xmlChar *)"schema")) {

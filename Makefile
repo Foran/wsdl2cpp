@@ -2,11 +2,11 @@ Q = @
 OBJS=	main.o wsdl.o xsd.o wsdlmessage.o wsdlporttype.o \
 	wsdloperation.o wsdlmessagepart.o xsdelement.o \
 	xsdsimpletype.o xsdcomplextype.o typegenerator.o \
-	civetweb.o path.o
+	civetweb.o path.o wsdlservice.o wsdlport.o
 SOURCES=$(OBJS:.o=.cpp)
 DEPENDS=$(SOURCES:.cpp=.d)
 DEFINES=-DDEBUG -DVERSION=\"0.01a\"
-LIBS=-lxml2 -ldl -lpthread
+LIBS=-lxml2 -ldl -lpthread -lcurl
 INCLUDES=-I/usr/include/libxml2 -Icivetweb/include
 CC=g++
 BIN=wsdl2cpp

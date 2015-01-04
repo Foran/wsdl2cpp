@@ -109,7 +109,7 @@ string Path::get_BaseFilename(const string &path)
 	string retval = Path::get_Absolute(path);
 
 	size_t pos = retval.find_last_of("/\\");
-	retval = retval.substr(pos + 1, retval.length() - pos - 1);
+	retval = retval.substr(pos + 1);
 
 	return retval;
 }
@@ -119,12 +119,32 @@ string Path::get_BaseFilename() const
 	return Path::get_BaseFilename(mPath);
 }
 
+string Path::get_BasePath(const string &path)
+{
+	string retval = Path::get_Absolute(path);
+
+	size_t pos = retval.find_last_of("/\\");
+	retval = retval.substr(0, pos + 1);
+
+	return retval;
+}
+
+string Path::get_BasePath() const
+{
+	return Path::get_BasePath(mPath);
+}
+
 string Path::get_UNC(const string &path)
 {
 	string retval = path;
 
 	if (!Path::is_UNC(retval)) {
-		retval = "file://" + Path::get_Absolute(retval);
+		if (Path::is_Absolute(retval)) {
+			retval = "file://" + Path::get_Absolute(retval);
+		}
+		else if (Path::is_Relative(retval)) {
+			retval = Path::ResolveRelative(Path::CurrentDirectory(), retval).get_UNC();
+		}
 	}
 
 	return retval;
@@ -197,7 +217,15 @@ bool Path::is_UNC(const string &path)
 		'/'
 #endif
 		&&
-		path.find_first_of("://") != string::npos) {
+		path.c_str()[0] != '.' &&
+		path.c_str()[1] != '.' &&
+		path.c_str()[3] !=
+#ifdef _WIN32
+		'\\'
+#else
+		'/'
+#endif
+		&&		path.find_first_of("://") != string::npos) {
 		retval = true;
 }
 

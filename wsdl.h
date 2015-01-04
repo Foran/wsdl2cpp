@@ -32,12 +32,14 @@ class WSDL
 		void Load(string filename);
 		void Load(xmlDocPtr document);
 		void Load(xmlNodePtr node);
+		void LoadImports(xmlNodePtr node);
 		void LoadTypes(xmlNodePtr node);
 		void LoadMessages(xmlNodePtr node);
 		void LoadPortTypes(xmlNodePtr node);
 		void LoadBindings(xmlNodePtr node);
 		void LoadPorts(xmlNodePtr node);
 		void LoadServices(xmlNodePtr node);
+		string FetchFile(const Path &unc) const;
 	private:
 		map<string, XSD *> mTypes;
 		map<string, WSDLMessage *> mMessages;
@@ -51,6 +53,7 @@ class WSDL
 		WSDL(const WSDL &source);
 		WSDL operator=(const WSDL &source) const;
 		string ResolvePath(string filename);
+		static size_t curl_write_callback(char *ptr, size_t size, size_t nmemb, void *userdata);
 };
 
 #endif

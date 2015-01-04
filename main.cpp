@@ -50,9 +50,10 @@ int main (int argc, char **argv)
 
 	if (ParseCmdLine(argc, argv)) {
 		for(string filename : Filenames) {
-			cout << filename << endl;
 			WSDL wsdl(filename);
-
+			for (string portTypeName : wsdl.get_PortTypeNames()) {
+				cout << "Generating codegen/" << wsdl.get_PortType(portTypeName).get_Name() << ".h ..." << endl;
+			}
 		}
 	}
 
