@@ -54,10 +54,10 @@
     <ClCompile Include="path.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="wsdlservice.cpp">
+    <ClCompile Include="wsdlport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="wsdlport.cpp">
+    <ClCompile Include="wsdlservice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -104,10 +104,10 @@
     <ClInclude Include="path.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="wsdlservice.h">
+    <ClInclude Include="wsdlport.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="wsdlport.h">
+    <ClInclude Include="wsdlservice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
