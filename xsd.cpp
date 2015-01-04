@@ -8,25 +8,13 @@ XSD::XSD(string filename)
 
 XSD::XSD(xmlDocPtr document)
 {
-	char path[FILENAME_MAX];
-	if (GetCurrentDir(path, sizeof(path)) > 0) {
-		mPath = path;
-	}
-	else {
-		mPath = "";
-	}
+	mPath = Path::CurrentDirectory();
 	Load(document);
 }
 
 XSD::XSD(xmlNodePtr node)
 {
-	char path[FILENAME_MAX];
-	if (GetCurrentDir(path, sizeof(path)) > 0) {
-		mPath = path;
-	}
-	else {
-		mPath = "";
-	}
+	mPath = Path::CurrentDirectory();
 	Load(node);
 }
 

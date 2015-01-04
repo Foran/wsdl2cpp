@@ -1,5 +1,16 @@
 #include "path.h"
 
+#include <vector>
+
+#ifdef _WIN32
+#include <direct.h>
+#define GetCurrentDir _getcwd
+#else
+#include <unistd.h>
+#define GetCurrentDir getcwd
+#include <libgen.h>
+#endif
+
 Path::Path()
 {
 
@@ -124,14 +135,55 @@ string Path::get_UNC() const
 	return Path::get_UNC(mPath);
 }
 
+string Path::get_Protocol() const
+{
+	string retval = get_UNC();
+
+	return retval.substr(0, retval.find_first_of(":"));
+}
+
 Path Path::ResolveRelative(const string &source, const string &relative)
 {
-	return source;
+	Path path(source);
+	string temp = path.get_UNC();
+	temp = temp.substr(path.get_Protocol().length() + 3);
+	vector<string> parts;
+	while (temp.length() > 0) {
+		size_t t = temp.find_first_of('/');
+		if (t == string::npos) {
+			parts.push_back(temp);
+			temp = "";
+		}
+		else {
+			parts.push_back(temp.substr(0, t));
+			temp = temp.substr(t + 1);
+		}
+	}
+	string retval = relative;
+	while (retval.find_first_of("../") == 0) {
+		parts.pop_back();
+		retval = retval.substr(3);
+	}
+	for (int i = parts.size() - 1; i >= 0; i--) {
+		retval = parts[i] + "/" + retval;
+	}
+	return retval;
 }
 
 Path Path::ResolveRelative(const string &relative) const
 {
 	return Path::ResolveRelative(mPath, relative);
+}
+
+bool Path::is_Relative(const string &relative)
+{
+	bool retval = false;
+
+	if (!Path::is_Absolute(relative)) {
+		retval = true;
+	}
+
+	return retval;
 }
 
 bool Path::is_UNC(const string &path)

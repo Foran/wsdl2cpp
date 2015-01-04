@@ -3,15 +3,6 @@
 
 #include <string>
 
-#ifdef _WIN32
-#include <direct.h>
-#define GetCurrentDir _getcwd
-#else
-#include <unistd.h>
-#define GetCurrentDir getcwd
-#include <libgen.h>
-#endif
-
 using namespace std;
 
 class Path
@@ -42,7 +33,9 @@ public:
 	static bool is_UNC(const string &path);
 	bool is_Absolute() const;
 	static bool is_Absolute(const string &path);
+	static bool is_Relative(const string &relative);
 	static string CurrentDirectory();
+	string get_Protocol() const;
 protected:
 private:
 	string mPath;
