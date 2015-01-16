@@ -28,10 +28,7 @@ void WSDLMessagePart::Load(xmlNodePtr node)
 	}
 	xmlChar *element = xmlGetProp(node, (const xmlChar *)"element");
 	if(element != nullptr) {
-		char *ch;
-		if((ch = strstr((char *)element, ":")) == nullptr) ch = (char *)element;
-		else ch++;
-		mElement = ch;
+		mElement = (char *)element;
 		xmlFree(element);
 	}
 }

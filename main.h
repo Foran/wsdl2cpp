@@ -12,6 +12,7 @@
 
 #include "wsdl.h"
 #include "path.h"
+#include "typegenerator.h"
 
 using namespace std;
 

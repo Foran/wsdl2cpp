@@ -27,7 +27,7 @@ class WSDL
 		vector<string> get_TypeNamespaces();
 		WSDLMessage& get_Message(string name) const;
 		WSDLPortType& get_PortType(string name) const;
-		XSD& get_Type(string ns) const;
+		XSDElement& get_Type(string name) const;
 	protected:
 		void Load(string filename);
 		void Load(xmlDocPtr document);

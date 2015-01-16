@@ -1,5 +1,7 @@
 #include "xsd.h"
 
+#include "curl/curl.h"
+
 XSD::XSD(string filename)
 {
 	mPath = "";
@@ -18,13 +20,13 @@ XSD::XSD(xmlNodePtr node)
 	Load(node);
 }
 
-XSD::XSD(xmlDocPtr document, string path)
+XSD::XSD(xmlDocPtr document, Path path)
 {
 	mPath = path;
 	Load(document);
 }
 
-XSD::XSD(xmlNodePtr node, string path)
+XSD::XSD(xmlNodePtr node, Path path)
 {
 	mPath = path;
 	Load(node);
@@ -98,9 +100,11 @@ XSDComplexType &XSD::get_ComplexType(string name)
 
 void XSD::Load(string filename)
 {
-	mPath = Path::get_Absolute(filename);
-	xmlDoc *doc = xmlReadFile(Path::get_UNC(filename).c_str(), nullptr, 0);
-	if(doc != nullptr) {
+	Path path(filename);
+	string buffer = FetchFile(path);
+	xmlDoc *doc = xmlReadMemory(buffer.c_str(), buffer.length(), "noname.xml", nullptr, 0);
+	if (doc != nullptr) {
+		mPath = path.get_BasePath();
 		Load(doc);
 		xmlFreeDoc(doc);
 	}
@@ -115,13 +119,23 @@ void XSD::Load(xmlDocPtr document)
 
 void XSD::Load(xmlNodePtr node)
 {
-	if (node != nullptr && node->ns != nullptr && node->ns->href != nullptr) {
-		mNamespace = (char *)node->ns->href;
-		if (node->ns->prefix != nullptr) {
-			mPrefix = (char *)node->ns->prefix;
+	if (node != nullptr) {
+		xmlChar *ns = xmlGetProp(node, (const xmlChar *)"targetNamespace");
+		if (ns != nullptr) {
+			mNamespace = (char *)ns;
+			xmlFree(ns);
+			xmlNsPtr nsptr = node->nsDef;
+			while (nsptr != nullptr) {
+				if (nsptr->href != nullptr && mNamespace == (char *)nsptr->href) {
+					if (nsptr->prefix != nullptr) {
+						mPrefix = (char *)nsptr->prefix;
+					}
+					break;
+				}
+			}
+			LoadElements(node);
+			LoadImports(node);
 		}
-		LoadElements(node);
-		LoadImports(node);
 	}
 }
 
@@ -182,7 +196,9 @@ void XSD::LoadImports(xmlNodePtr node)
 		if(cur_node->type == XML_ELEMENT_NODE && !xmlStrcmp(cur_node->name, (const xmlChar *)"import")) {
 			xmlChar *import = xmlGetProp(cur_node, (const xmlChar *)"schemaLocation");
 			if(import != nullptr) {
-				XSD temp(Path::get_UNC((char *)import));
+				Path path((char *)import);
+				if (Path::is_Relative((char *)import)) path = mPath.ResolveRelative((char *)import);
+				XSD temp(path.get_UNC());
 				xmlFree(import);
 				for (string element : temp.get_ElementNames()) {
 					mElements[element] = new XSDElement(temp.get_Element(element));
@@ -193,4 +209,29 @@ void XSD::LoadImports(xmlNodePtr node)
 			}
 		}
 	}
+}
+
+size_t XSD::curl_write_callback(char *ptr, size_t size, size_t nmemb, void *userdata)
+{
+	((string *)userdata)->append(ptr, size * nmemb);
+	return size * nmemb;
+}
+
+string XSD::FetchFile(const Path &unc) const
+{
+	string retval = "";
+	CURL *ch = curl_easy_init();
+	if (ch) {
+		curl_easy_setopt(ch, CURLOPT_URL, unc.get_UNC().c_str());
+		curl_easy_setopt(ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_easy_setopt(ch, CURLOPT_SSL_VERIFYHOST, false);
+		curl_easy_setopt(ch, CURLOPT_WRITEDATA, &retval);
+		curl_easy_setopt(ch, CURLOPT_WRITEFUNCTION, XSD::curl_write_callback);
+		if (CURLE_OK != curl_easy_perform(ch)) {
+			retval = "";
+		}
+		curl_easy_cleanup(ch);
+	}
+
+	return retval;
 }

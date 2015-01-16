@@ -73,9 +73,23 @@ WSDLPortType& WSDL::get_PortType(string name) const
 	return *(const_cast<WSDL *>(this)->mPortTypes[name]);
 }
 
-XSD& WSDL::get_Type(string ns) const
+XSDElement& WSDL::get_Type(string name) const
 {
-	return *(const_cast<WSDL *>(this)->mTypes[ns]);
+	string elementName = name;
+	string ns = "";
+	size_t pos = name.find_first_of(':');
+	if (pos != string::npos) {
+		elementName = name.substr(pos + 1);
+		ns = name.substr(0, pos);
+	}
+	for (auto& kv : mTypes) {
+		for (string name : kv.second->get_ElementNames()) {
+			if (name == elementName) {
+				return kv.second->get_Element(elementName);
+			}
+		}
+	}
+	return (const_cast<WSDL *>(this)->mTypes[ns])->get_Element(name);
 }
 
 size_t WSDL::curl_write_callback(char *ptr, size_t size, size_t nmemb, void *userdata)
@@ -109,7 +123,7 @@ void WSDL::Load(string filename)
 	string buffer = FetchFile(path);
 	xmlDoc *doc = xmlReadMemory(buffer.c_str(), buffer.length(), "noname.xml", nullptr, 0);
 	if (doc != nullptr) {
-		mPath = path;
+		mPath = path.get_BasePath();
 		Load(doc);
 		xmlFreeDoc(doc);
 	}
