@@ -57,3 +57,6 @@ mrproper: clean
 	$(Q)-rm -rf $(DEPENDS) $(TESTDEPENDS)
 	@echo "Removing documentation..."
 	$(Q)-rm -rf documentation/
+	@echo "Removing MSVC++ Build Directories..."
+	$(Q)-rm -rf Debug/
+	$(Q)-rm -rf Release/
