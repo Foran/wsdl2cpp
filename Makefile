@@ -34,7 +34,7 @@ $(TESTBIN):$(TESTOBJS)
 
 civetweb.o: civetweb/src/civetweb.c civetweb/include/civetweb.h
 	@echo "Compiling $<..."
-	$(CC) $(CFLAGS) -x c -c $< -o $@
+	$(Q)$(CC) $(CFLAGS) -x c -c $< -o $@
 
 %.o: %.cpp %.d
 	@echo "Compiling $<..."
