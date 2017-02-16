@@ -12,10 +12,10 @@ new_http_archive(
 
 new_http_archive(
   name = "civetweb",
-  url = "https://github.com/Foran/civetweb/archive/v1.5.zip",
-  sha256 = "bb3615e43a0b8de5e887486cde5b8dc0f794d682b3166e095099e51f931c9901",
+  url = "https://github.com/civetweb/civetweb/archive/v1.9.1.zip",
+  sha256 = "c0ed531d8ab7a56dc3457eefdbb5568419446181303fd99b6bd9c94532cf85d5",
   build_file = "civetweb.BUILD",
-  strip_prefix = "civetweb-1.5",
+  strip_prefix = "civetweb-1.9.1",
 )
 
 http_archive(

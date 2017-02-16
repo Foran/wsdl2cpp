@@ -8,7 +8,7 @@ cc_library(
     ],
     textual_hdrs = [
       "src/md5.inl",
-      "src/mod_lua.inl",
+      "src/handle_form.inl",
     ],
     copts = [
       "-Iexternal/civetweb/include",
