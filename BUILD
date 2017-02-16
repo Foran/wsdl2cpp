@@ -65,6 +65,9 @@ cc_test(
     "@gtest//:main",
     ":libwsdl2cpp",
   ],
+  copts = [
+    "-Iexternal/gtest/include",
+  ],
   linkopts = [
     "-lxml2",
     "-ldl",
@@ -85,6 +88,7 @@ cc_test(
   ],
   copts = [
     "-I/usr/include/libxml2",
+    "-Iexternal/gtest/include",
   ],
   linkopts = [
     "-lxml2",
@@ -110,6 +114,7 @@ cc_test(
   ],
   copts = [
     "-I/usr/include/libxml2",
+    "-Iexternal/gtest/include",
   ],
   linkopts = [
     "-lxml2",
