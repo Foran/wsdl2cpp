@@ -12,8 +12,7 @@ addons:
 
 before_install:
   - wget https://github.com/bazelbuild/bazel/releases/download/0.4.4/bazel_0.4.4-linux-x86_64.deb
-  - echo
-'c0b4df929bc2e1e12fb4ce72961cb77901cf6f594a789e195ea50f7c8673ddea bazel_0.4.4-linux-x86_64.deb' | sha256sum -c -
+  - echo 'c0b4df929bc2e1e12fb4ce72961cb77901cf6f594a789e195ea50f7c8673ddea bazel_0.4.4-linux-x86_64.deb' | sha256sum -c -
   - sudo dpkg -i bazel_0.4.4-linux-x86_64.deb
 
 script:
