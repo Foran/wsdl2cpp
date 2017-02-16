@@ -19,4 +19,9 @@ test/runXSDUnitTests
 test/runWSDLUnitTests
 test/runPathUnitTests
 wsdl2cpp.tag
-
+bazel-bin
+bazel-genfiles
+bazel-out
+bazel-testlogs
+bazel-wsdl2cpp
+codegen/*

@@ -3,28 +3,109 @@ cc_binary(
   srcs = [
     "main.cpp",
     "main.h",
+  ],
+  copts = [
+    "-I/usr/include/libxml2",
+  ],
+  linkopts = [
+    "-lxml2",
+    "-ldl",
+    "-lpthread",
+    "-lcurl",
+  ],
+  deps = [
+    ":libwsdl2cpp",
+  ],
+)
+
+cc_library(
+  name = "libwsdl2cpp",
+  srcs = [
     "wsdl.cpp",
-    "wsdl.h",
-    "wsdlmessage.h",
     "wsdlmessage.cpp",
     "wsdlmessagepart.cpp",
-    "wsdlmessagepart.h",
     "wsdlporttype.cpp",
-    "wsdlporttype.h",
     "wsdloperation.cpp",
-    "wsdloperation.h",
     "xsd.cpp",
-    "xsd.h",
     "xsdelement.cpp",
-    "xsdelement.h",
     "xsdsimpletype.cpp",
-    "xsdsimpletype.h",
     "xsdcomplextype.cpp",
-    "xsdcomplextype.h",
     "path.cpp",
-    "path.h",
     "typegenerator.cpp",
+  ],
+  hdrs = [
+    "wsdl.h",
+    "wsdlmessage.h",
+    "wsdlmessagepart.h",
+    "wsdlporttype.h",
+    "wsdloperation.h",
+    "xsd.h",
+    "xsdelement.h",
+    "xsdsimpletype.h",
+    "xsdcomplextype.h",
+    "path.h",
     "typegenerator.h",
+  ],
+  deps = [
+    "@com_github_gflags_gflags//:gflags",
+  ],
+  copts = [
+    "-I/usr/include/libxml2",
+  ],
+)
+
+cc_test(
+  name = "path_tests",
+  size = "small",
+  srcs = [
+    "test/pathUnitTests.cpp",
+  ],
+  deps = [
+    "@gtest//:main",
+    ":libwsdl2cpp",
+  ],
+  linkopts = [
+    "-lxml2",
+    "-ldl",
+    "-lpthread",
+    "-lcurl",
+  ],
+)
+
+cc_test(
+  name = "wsdl_tests",
+  size = "small",
+  srcs = [
+    "test/wsdlUnitTests.cpp",
+  ],
+  deps = [
+    "@gtest//:main",
+    ":libwsdl2cpp",
+  ],
+  copts = [
+    "-I/usr/include/libxml2",
+  ],
+  linkopts = [
+    "-lxml2",
+    "-ldl",
+    "-lpthread",
+    "-lcurl",
+  ],
+)
+
+cc_test(
+  name = "xsd_test",
+  size = "small",
+  srcs = [
+    "test/xsdUnitTests.cpp",
+  ],
+  deps = [
+    "@gtest//:main",
+    ":libwsdl2cpp",
+  ],
+  data = [
+    "test/testData/basic.wsdl",
+    "test/testData/basic.xsd",
   ],
   copts = [
     "-I/usr/include/libxml2",

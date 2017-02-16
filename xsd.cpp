@@ -219,19 +219,20 @@ size_t XSD::curl_write_callback(char *ptr, size_t size, size_t nmemb, void *user
 
 string XSD::FetchFile(const Path &unc) const
 {
-	string retval = "";
-	CURL *ch = curl_easy_init();
-	if (ch) {
-		curl_easy_setopt(ch, CURLOPT_URL, unc.get_UNC().c_str());
-		curl_easy_setopt(ch, CURLOPT_SSL_VERIFYPEER, false);
-		curl_easy_setopt(ch, CURLOPT_SSL_VERIFYHOST, false);
-		curl_easy_setopt(ch, CURLOPT_WRITEDATA, &retval);
-		curl_easy_setopt(ch, CURLOPT_WRITEFUNCTION, XSD::curl_write_callback);
-		if (CURLE_OK != curl_easy_perform(ch)) {
-			retval = "";
-		}
-		curl_easy_cleanup(ch);
-	}
-
-	return retval;
+   string retval = "";
+   CURL *ch = curl_easy_init();
+   if (ch) {
+      curl_easy_setopt(ch, CURLOPT_URL, unc.get_UNC().c_str());
+      curl_easy_setopt(ch, CURLOPT_SSL_VERIFYPEER, false);
+      curl_easy_setopt(ch, CURLOPT_SSL_VERIFYHOST, false);
+      curl_easy_setopt(ch, CURLOPT_WRITEDATA, &retval);
+      curl_easy_setopt(ch, CURLOPT_WRITEFUNCTION, XSD::curl_write_callback);
+      CURLcode result = curl_easy_perform(ch);
+      if (CURLE_OK != result) {
+	 retval = "";
+      }
+      curl_easy_cleanup(ch);
+   }
+   
+   return retval;
 }

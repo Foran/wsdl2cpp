@@ -1,5 +1,5 @@
 // wsdlUnitTests.cpp
-#include "../wsdl.h"
+#include "wsdl.h"
 #include <gtest/gtest.h>
 
 TEST(WSDLTest, WSDKLoadOperationCount) { 
