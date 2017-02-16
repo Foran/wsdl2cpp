@@ -10,6 +10,14 @@ new_http_archive(
   strip_prefix = "googletest-release-1.7.0",
 )
 
+new_http_archive(
+  name = "civetweb",
+  url = "https://github.com/Foran/civetweb/archive/v1.5.zip",
+  sha256 = "bb3615e43a0b8de5e887486cde5b8dc0f794d682b3166e095099e51f931c9901",
+  build_file = "civetweb.BUILD",
+  strip_prefix = "civetweb-1.5",
+)
+
 http_archive(
   name = "com_github_gflags_gflags",
   url = "https://github.com/gflags/gflags/archive/v2.2.0.zip",

@@ -48,6 +48,7 @@ cc_library(
   ],
   deps = [
     "@com_github_gflags_gflags//:gflags",
+    "@civetweb//:civetweb",
   ],
   copts = [
     "-I/usr/include/libxml2",

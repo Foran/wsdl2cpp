@@ -1,3 +1,0 @@
-[submodule "civetweb"]
-	path = civetweb
-	url = git://github.com/Foran/civetweb.git
