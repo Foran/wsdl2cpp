@@ -8,6 +8,7 @@ addons:
   apt:
     packages:
       - wget
+      - coreutils
       - pkg-config
 
 before_install:
