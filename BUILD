@@ -47,7 +47,7 @@ cc_library(
     "typegenerator.h",
   ],
   deps = [
-    "@com_github_gflags_gflags//:gflags",
+    "//external:gflags",
     "@civetweb//:civetweb",
   ],
   copts = [
