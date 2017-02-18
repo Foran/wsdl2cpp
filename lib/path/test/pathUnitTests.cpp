@@ -14,9 +14,18 @@ TEST(PATHTest, PathAssignment) {
    
    EXPECT_EQ(string(""), a.get_Raw());
    a = b;
-   EXPECT_EQ(string("foo.txt"), a.get_raw());
-   a = "bar.txt"
-   EXPECT_EQ(string("bar.txt"), a.get_raw());
+   EXPECT_EQ(string("foo.txt"), a.get_Raw());
+   a = "bar.txt";
+   EXPECT_EQ(string("bar.txt"), a.get_Raw());
+}
+
+TEST(PATHTest, PathEquality) {
+   Path a("foo.txt"), b("bar.txt"), c("bar.txt");
+   
+   EXPECT_FALSE(a == b);
+   EXPECT_TRUE(b == c);
+   EXPECT_TRUE(a == "foo.txt");
+   EXPECT_FALSE(b == "foo.txt");
 }
 
 TEST(PATHTest, PathAbsolute) {
