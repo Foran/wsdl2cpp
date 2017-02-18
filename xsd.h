@@ -13,7 +13,7 @@
 #include "xsdsimpletype.h"
 #include "xsdcomplextype.h"
 
-#include "path.h"
+#include "lib/path/path.h"
 
 using namespace std;
 

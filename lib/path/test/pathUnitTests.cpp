@@ -1,5 +1,5 @@
 // pathUnitTests.cpp
-#include "path.h"
+#include "lib/path/path.h"
 #include <gtest/gtest.h>
 
 TEST(PATHTest, PathAbsolute) {

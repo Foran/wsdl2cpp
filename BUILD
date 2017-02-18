@@ -30,7 +30,6 @@ cc_library(
     "xsdelement.cpp",
     "xsdsimpletype.cpp",
     "xsdcomplextype.cpp",
-    "path.cpp",
     "typegenerator.cpp",
   ],
   hdrs = [
@@ -43,36 +42,15 @@ cc_library(
     "xsdelement.h",
     "xsdsimpletype.h",
     "xsdcomplextype.h",
-    "path.h",
     "typegenerator.h",
   ],
   deps = [
     "//external:gflags",
     "@civetweb//:civetweb",
+    "//lib/path:libpath",
   ],
   copts = [
     "-I/usr/include/libxml2",
-  ],
-)
-
-cc_test(
-  name = "path_tests",
-  size = "small",
-  srcs = [
-    "test/pathUnitTests.cpp",
-  ],
-  deps = [
-    "@gtest//:main",
-    ":libwsdl2cpp",
-  ],
-  copts = [
-    "-Iexternal/gtest/include",
-  ],
-  linkopts = [
-    "-lxml2",
-    "-ldl",
-    "-lpthread",
-    "-lcurl",
   ],
 )
 

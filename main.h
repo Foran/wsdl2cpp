@@ -11,7 +11,7 @@
 #include <libxml/tree.h>
 
 #include "wsdl.h"
-#include "path.h"
+#include "lib/path/path.h"
 #include "typegenerator.h"
 
 using namespace std;
