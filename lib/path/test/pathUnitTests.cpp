@@ -4,12 +4,24 @@
 
 TEST(PATHTest, PathConstructor) {
    Path a, b("foo.txt");
+   
    EXPECT_EQ(string(""), a.get_Raw());
    EXPECT_EQ(string("foo.txt"), b.get_Raw());
 }
 
+TEST(PATHTest, PathAssignment) {
+   Path a, b("foo.txt");
+   
+   EXPECT_EQ(string(""), a.get_Raw());
+   a = b;
+   EXPECT_EQ(string("foo.txt"), a.get_raw());
+   a = "bar.txt"
+   EXPECT_EQ(string("bar.txt"), a.get_raw());
+}
+
 TEST(PATHTest, PathAbsolute) {
    Path path("foo");
+   
    ASSERT_EQ(Path::CurrentDirectory() + "foo", path.get_Absolute());
 }
 
