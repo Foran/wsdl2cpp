@@ -2,6 +2,12 @@
 #include "lib/path/path.h"
 #include <gtest/gtest.h>
 
+TEST(PATHTest, PathConstructor) {
+   Path a, b("foo.txt");
+   EXPECT_EQ(string(""), a.get_Raw());
+   EXPECT_EQ(string("foo.txt"), b.get_Raw());
+}
+
 TEST(PATHTest, PathAbsolute) {
    Path path("foo");
    ASSERT_EQ(Path::CurrentDirectory() + "foo", path.get_Absolute());
