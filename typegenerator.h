@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "xsdelement.h"
+#include "lib/xsd/xsdelement.h"
 
 using namespace std;
 

@@ -1,5 +1,5 @@
 // xsdUnitTests.cpp
-#include "xsd.h"
+#include "lib/xsd/xsd.h"
 #include "gtest/gtest.h"
 
 TEST(XSDTest, XSDLoadElementCount) { 

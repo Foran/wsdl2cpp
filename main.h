@@ -10,7 +10,7 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
-#include "wsdl.h"
+#include "lib/wsdl/wsdl.h"
 #include "lib/path/path.h"
 #include "typegenerator.h"
 
