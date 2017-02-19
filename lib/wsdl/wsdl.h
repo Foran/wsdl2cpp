@@ -10,7 +10,7 @@
 
 #include "wsdlmessage.h"
 #include "wsdlporttype.h"
-#include "xsd.h"
+#include "lib/xsd/xsd.h"
 
 using namespace std;
 

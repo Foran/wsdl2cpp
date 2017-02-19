@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:basic="http://wsdl2cpp.foransrealm.com/schemas/testData/basic/2014/12/06" elementFormDefault="qualified" targetNamespace="http://wsdl2cpp.foransrealm.com/schemas/testData/basic/2014/12/06"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="SimpleEnum" type="test:SimpleEnum"/>
+    <xs:simpleType name="SimpleEnum">
+        <xs:annotation>
+            <xs:documentation>
+                <summary>Sample comment</summary>
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Value1">
+                <xs:annotation>
+                    <xs:documentation>
+                        <summary>Comment 1</summary>
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="Value2">
+                <xs:annotation>
+                    <xs:documentation>
+                        <summary>Comment 2</summary>
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:element name="SimpleStruct">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="message" type="xs:string"/>
+                <xs:element name="value" type="basic:SimpleEnum"/>
+                <xs:element name="scale" type="xs:unsignedInt"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="EmptyType">
+        <xs:complexType>
+            <xs:sequence/>
+        </xs:complexType>
+    </xs:element>
+	<xs:element name="BasicType" type="xs:string" />
+</xs:schema>
