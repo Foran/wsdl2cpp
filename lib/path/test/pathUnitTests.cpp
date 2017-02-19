@@ -28,6 +28,11 @@ TEST(PATHTest, PathEquality) {
    EXPECT_FALSE(b == "foo.txt");
 }
 
+TEST(PATHTest, PathUNC) {
+   Path path("foo.txt");
+   ASSERT_EQ(string("file://") + Path::CurrentDirectory() + "foo.txt", path.get_UNC());
+}
+
 TEST(PATHTest, PathAbsolute) {
    Path path("foo");
    
@@ -37,6 +42,17 @@ TEST(PATHTest, PathAbsolute) {
 TEST(PATHTest, PathRelative) 
 {
    ASSERT_EQ(string("file:///home/user/foo.txt"), Path::ResolveRelative("file:///home/media/music", "../../user/foo.txt").get_UNC());
+}
+
+TEST(PATHTest, PathCurrentDirectory) {
+   ASSERT_NE(string(""), Path::CurrentDirectory());
+}
+
+TEST(PATHTest, PathProtocol) {
+   Path a("foo.txt");
+   EXPECT_EQ(string("file"), a.get_Protocol());
+   a = "http://foo.com/bar.txt";
+   EXPECT_EQ(string("http"), a.get_Protocol());
 }
 
 int main(int argc, char **argv) {
