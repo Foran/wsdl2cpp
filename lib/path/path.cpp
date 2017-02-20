@@ -208,28 +208,20 @@ bool Path::is_Relative(const string &relative)
 
 bool Path::is_UNC(const string &path)
 {
-	bool retval = false;
-
-	if (path.c_str()[0] !=
+	bool retval = true;
 #ifdef _WIN32
-		'\\'
+   char seperator = '\\';
 #else
-		'/'
+   char seperator = '/';
 #endif
-		&&
-		path.c_str()[0] != '.' &&
-		path.c_str()[1] != '.' &&
-		path.c_str()[3] !=
-#ifdef _WIN32
-		'\\'
-#else
-		'/'
-#endif
-		&&		path.find_first_of("://") != string::npos) {
-		retval = true;
-}
-
-	return retval;
+   bool isRoot = path.c_str()[0] == seperator;
+   bool isExplicitRelative = path.c_str()[0] == '.' && (path.c_str()[1] == seperator || (path.c_str()[1] == '.' && path.c_str()[2] == seperator));
+   
+   if (isRoot || isExplicitRelative || path.find("://") == string::npos) {
+      retval = false;
+   }
+   
+   return retval;
 }
 
 bool Path::is_UNC() const

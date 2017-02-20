@@ -29,8 +29,23 @@ TEST(PATHTest, PathEquality) {
 }
 
 TEST(PATHTest, PathUNC) {
+   Path path("data/foo.txt");
+   ASSERT_EQ(string("file://") + Path::CurrentDirectory() + "data/foo.txt", path.get_UNC());
+}
+
+TEST(PATHTest, PathIsUNCNoPath) {
    Path path("foo.txt");
-   ASSERT_EQ(string("file://") + Path::CurrentDirectory() + "foo.txt", path.get_UNC());
+   EXPECT_FALSE(path.is_UNC()) << "\"foo.txt\" was an UNC";
+   path = "data/foo.txt";
+   EXPECT_FALSE(path.is_UNC()) << "\"data/foo.txt\" was an UNC";
+   path = "/home/user/data/foo.txt";
+   EXPECT_FALSE(path.is_UNC()) << "\"/home/user/data/foo.txt\" was an UNC";
+   path = "file:///home/user/data/foo.txt";
+   EXPECT_TRUE(path.is_UNC()) << "\"file:///home/user/data/foo.txt\" was not an UNC";
+   path = "http://example.com/data/foo.txt";
+   EXPECT_TRUE(path.is_UNC()) << "\"http://example.com/data/foo.txt\" was not an UNC";
+   path = "https://example.com/data/foo.txt";
+   EXPECT_TRUE(path.is_UNC()) << "\"https://example.com/data/foo.txt\" was not an UNC";
 }
 
 TEST(PATHTest, PathAbsolute) {
