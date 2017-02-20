@@ -134,6 +134,7 @@ void XSD::Load(xmlNodePtr node)
 				}
 			}
 			LoadElements(node);
+		   LoadSimpleTypes(node);
 			LoadImports(node);
 		}
 	}
@@ -221,6 +222,7 @@ string XSD::FetchFile(const Path &unc) const
 {
    string retval = "";
    CURL *ch = curl_easy_init();
+
    if (ch) {
       curl_easy_setopt(ch, CURLOPT_URL, unc.get_UNC().c_str());
       curl_easy_setopt(ch, CURLOPT_SSL_VERIFYPEER, false);
