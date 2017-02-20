@@ -29,8 +29,8 @@ TEST(PATHTest, PathEquality) {
 }
 
 TEST(PATHTest, PathUNC) {
-   Path path("foo.txt");
-   ASSERT_EQ(string("file://") + Path::CurrentDirectory() + "foo.txt", path.get_UNC());
+   Path path("data/foo.txt");
+   ASSERT_EQ(string("file://") + Path::CurrentDirectory() + "data/foo.txt", path.get_UNC());
 }
 
 TEST(PATHTest, PathAbsolute) {
