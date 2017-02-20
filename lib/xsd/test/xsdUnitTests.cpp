@@ -3,15 +3,15 @@
 #include "gtest/gtest.h"
 
 TEST(XSDTest, XSDLoadElementCount) { 
-   XSD xsd("data/basic.xsd");
+   XSD xsd("lib/xsd/test/data/basic.xsd");
    //TODO(foran): fix test
-   //EXPECT_EQ((unsigned int)4, xsd.get_ElementNames().size());
+   EXPECT_EQ((unsigned int)4, xsd.get_ElementNames().size());
 }
 
 TEST(XSDTest, XSDLoadSimpleTypeCount) { 
-   XSD xsd("data/basic.xsd");
+   XSD xsd("lib/xsd/test/data/basic.xsd");
    //TODO(foran): fix test
-   //EXPECT_EQ((unsigned int)1, xsd.get_SimpleTypeNames().size());
+   EXPECT_EQ((unsigned int)1, xsd.get_SimpleTypeNames().size());
 }
 
 int main(int argc, char **argv) {
