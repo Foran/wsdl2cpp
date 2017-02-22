@@ -148,6 +148,7 @@ void XSD::LoadElements(xmlNodePtr node)
 			if (element != nullptr) {
 				if (element->get_Name().length() > 0) {
 					mElements[element->get_Name()] = element;
+				   LoadComplexTypes(cur_node);
 				}
 				else {
 					delete element;
@@ -184,7 +185,10 @@ void XSD::LoadComplexTypes(xmlNodePtr node)
 					mComplexTypes[complexType->get_Name()] = complexType;
 				}
 				else {
-					delete complexType;
+				   //TODO(foran): Clean this up
+				   char buf[1024];
+				   sprintf(buf, "[complexType]:%lu", mComplexTypes.size());
+				   mComplexTypes[buf] = complexType;
 				}
 			}
 		}
