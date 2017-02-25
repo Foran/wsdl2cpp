@@ -15,7 +15,7 @@ cc_library(
     "wsdloperation.h",
   ],
   deps = [
-    "//external:gflags",
+    "//external:gflags_nothreads",
     "@civetweb//:civetweb",
     "//lib/path:libpath",
     "//lib/xsd:libxsd",

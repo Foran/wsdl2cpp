@@ -10,7 +10,6 @@ cc_binary(
   linkopts = [
     "-lxml2",
     "-ldl",
-    "-lpthread",
     "-lcurl",
   ],
   deps = [
@@ -28,7 +27,7 @@ cc_library(
     "typegenerator.h",
   ],
   deps = [
-    "//external:gflags",
+    "//external:gflags_nothreads",
     "@civetweb//:civetweb",
     "//lib/path:libpath",
     "//lib/xsd:libxsd",
