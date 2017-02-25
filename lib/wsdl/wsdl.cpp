@@ -1,6 +1,7 @@
 #include "wsdl.h"
 
 #include "curl/curl.h"
+#include <iostream>
 
 WSDL::WSDL(string filename)
 {
@@ -103,6 +104,7 @@ string WSDL::FetchFile(const Path &unc) const
 	string retval = "";
 	CURL *ch = curl_easy_init();
 	if (ch) {
+	   std::cout << "Fetching " << unc.get_UNC() << "..." << endl;
 		curl_easy_setopt(ch, CURLOPT_URL, unc.get_UNC().c_str());
 		curl_easy_setopt(ch, CURLOPT_SSL_VERIFYPEER, false);
 		curl_easy_setopt(ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -139,12 +141,19 @@ void WSDL::Load(xmlDocPtr document)
 
 void WSDL::Load(xmlNodePtr node)
 {
+   cout << "Loading Imports..." << endl;
 	LoadImports(node);
+   cout << "Loading Types..." << endl;
 	LoadTypes(node);
+   cout << "Loading Messages..." << endl;
 	LoadMessages(node);
+   cout << "Loading PortTypes..." << endl;
 	LoadPortTypes(node);
+   cout << "Loading Bindings..." << endl;
 	LoadBindings(node);
+   cout << "Loading Ports..." << endl;
 	LoadPorts(node);
+   cout << "Loading Services..." << endl;
 	LoadServices(node);
 }
 

@@ -15,6 +15,7 @@ cc_binary(
   ],
   deps = [
     ":libwsdl2cpp",
+    "//external:gflags_nothreads",
   ],
 )
 

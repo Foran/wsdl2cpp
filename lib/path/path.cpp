@@ -11,6 +11,10 @@
 #include <libgen.h>
 #endif
 
+#include "gflags/gflags.h"
+
+DEFINE_bool(auto_expand_relative_root, true, "Automatically expand a relative path to file:/// UNC when no prefix is supplied");
+
 Path::Path()
 {
 

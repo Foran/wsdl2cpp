@@ -2,6 +2,8 @@
 
 #include "curl/curl.h"
 
+#include <iostream>
+
 XSD::XSD(string filename)
 {
 	mPath = "";
@@ -119,6 +121,7 @@ void XSD::Load(xmlDocPtr document)
 
 void XSD::Load(xmlNodePtr node)
 {
+   cout << "Loading Schema..." << endl;
 	if (node != nullptr) {
 		xmlChar *ns = xmlGetProp(node, (const xmlChar *)"targetNamespace");
 		if (ns != nullptr) {
@@ -132,6 +135,7 @@ void XSD::Load(xmlNodePtr node)
 					}
 					break;
 				}
+			   nsptr = nsptr->next;
 			}
 			LoadElements(node);
 		   LoadSimpleTypes(node);
@@ -228,6 +232,7 @@ string XSD::FetchFile(const Path &unc) const
    CURL *ch = curl_easy_init();
 
    if (ch) {
+	   std::cout << "Fetching " << unc.get_UNC() << "..." << endl;
       curl_easy_setopt(ch, CURLOPT_URL, unc.get_UNC().c_str());
       curl_easy_setopt(ch, CURLOPT_SSL_VERIFYPEER, false);
       curl_easy_setopt(ch, CURLOPT_SSL_VERIFYHOST, false);

@@ -29,3 +29,8 @@ bind(
   name = "gflags",
   actual = "@com_github_gflags_gflags//:gflags",
 )
+
+bind(
+  name = "gflags_nothreads",
+  actual = "@com_github_gflags_gflags//:gflags_nothreads",
+)
