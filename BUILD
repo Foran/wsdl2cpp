@@ -10,7 +10,6 @@ cc_binary(
   linkopts = [
     "-lxml2",
     "-ldl",
-    "-lpthread",
     "-lcurl",
   ],
   deps = [
