@@ -14,26 +14,8 @@ cc_binary(
     "-lcurl",
   ],
   deps = [
-    ":libwsdl2cpp",
+    "//lib/wsdl:libwsdl",
+    "//lib/typegenerator:libtypegenerator",
   ],
 )
 
-cc_library(
-  name = "libwsdl2cpp",
-  srcs = [
-    "typegenerator.cpp",
-  ],
-  hdrs = [
-    "typegenerator.h",
-  ],
-  deps = [
-    "//external:gflags",
-    "@civetweb//:civetweb",
-    "//lib/path:libpath",
-    "//lib/xsd:libxsd",
-    "//lib/wsdl:libwsdl",
-  ],
-  copts = [
-    "-I/usr/include/libxml2",
-  ],
-)
