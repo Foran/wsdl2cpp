@@ -6,6 +6,7 @@ This project was started due to the significant lack of a good open source solut
 ### The current build status
 - Linux CI [![Build Status](https://secure.travis-ci.org/Foran/wsdl2cpp.png?branch=master)](https://travis-ci.org/Foran/wsdl2cpp)
 - Coverity [![Coverity Scan Build Status](https://img.shields.io/coverity/scan/11954.svg)](https://scan.coverity.com/projects/foran-wsdl2cpp)
+- Code Coverage [![Coverage Status](https://coveralls.io/repos/github/Foran/wsdl2cpp/badge.svg?branch=master)](https://coveralls.io/github/Foran/wsdl2cpp?branch=master)
 
 ## Build Tools
 This project is built with Google's [Bazel](http://bazel.build) (a build management system).
