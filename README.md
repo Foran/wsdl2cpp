@@ -3,7 +3,9 @@ This project is in the early development stage and after a long break is receivi
 
 This project was started due to the significant lack of a good open source solution for C++ code generators for SOAP 1.2
 
-The current build is [![Build Status](https://secure.travis-ci.org/Foran/wsdl2cpp.png?branch=master)](https://travis-ci.org/Foran/wsdl2cpp)
+### The current build status
+- Linux CI [![Build Status](https://secure.travis-ci.org/Foran/wsdl2cpp.png?branch=master)](https://travis-ci.org/Foran/wsdl2cpp)
+- Coverity [![Coverity Scan Build Status](https://img.shields.io/coverity/scan/11954.svg)](https://scan.coverity.com/projects/foran-wsdl2cpp)
 
 ## Build Tools
 This project is built with Google's [Bazel](http://bazel.build) (a build management system).
