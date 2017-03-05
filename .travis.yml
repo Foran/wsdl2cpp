@@ -18,7 +18,7 @@ addons:
     notification_email: ben.ward@gmail.com
     build_command_prepend: ""
     build_command: "bazel build //..."
-    branch_pattern: coverity_scan
+    branch_pattern: Foran-patch-1
   apt:
     packages:
       - wget
