@@ -5,15 +5,27 @@ language: cpp
 compiler:
   - clang
   - gcc
-  
+
+env:
+  global:
+    - secure: "FkOh48RgjwNfhFh2N62zXjkCOyhvJXcB3KSk0G3B7eOyZ02yoX9drFcvo946vJ7mvc9a3j77ZnJ+QkhwqT+DA6ZxitJZywVR9KnZkLvuPNofW0qFsOyYGAHskElzLkaFwc1RkVOYf7I/HTvo5CTuYyzek6v/6NWLOoFwaFMFPH8="
+
 addons:
   apt:
     packages:
       - wget
       - coreutils
       - pkg-config
+  coverity_scan:
+    project: "Foran/wsdl2cpp"
+    description: "Build submitted via Travis CI"
+  notifaction_email: ben.ward@gmail.com
+  build_command_prepend: ""
+  build_command: "bazel build //..."
+  branch_pattern: coverity_scan
 
 before_install:
+  - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
   - wget https://github.com/bazelbuild/bazel/releases/download/0.4.4/bazel_0.4.4-linux-x86_64.deb
   - sudo dpkg -i bazel_0.4.4-linux-x86_64.deb
 
