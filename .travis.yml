@@ -20,7 +20,7 @@ addons:
     project:
       name: "Foran/wsdl2cpp"
       description: "Build submitted via Travis CI"
-    notifaction_email: ben.ward@gmail.com
+    notification_email: ben.ward@gmail.com
     build_command_prepend: ""
     build_command: "bazel build //..."
     branch_pattern: coverity_scan
