@@ -5,7 +5,7 @@ cc_test(
     "xsdUnitTests.cpp",
   ],
   deps = [
-    "@gtest//:main",
+    "@gtest//:gtest_main",
     "//lib/xsd:libxsd",
   ],
   data = [

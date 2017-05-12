@@ -6,7 +6,7 @@ cc_test(
     "wsdlUnitTests.cpp",
   ],
   deps = [
-    "@gtest//:main",
+    "@gtest//:gtest_main",
     "//lib/wsdl:libwsdl",
   ],
   data = [
