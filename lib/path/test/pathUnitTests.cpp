@@ -69,8 +69,3 @@ TEST(PATHTest, PathProtocol) {
    a = "http://foo.com/bar.txt";
    EXPECT_EQ(string("http"), a.get_Protocol());
 }
-
-int main(int argc, char **argv) {
-   testing::InitGoogleTest(&argc, argv);
-   return RUN_ALL_TESTS();
-}
