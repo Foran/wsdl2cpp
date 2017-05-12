@@ -19,8 +19,3 @@ TEST(XSDTest, XSDLoadComplexTypeCount) {
 
    EXPECT_EQ((unsigned int)2, xsd.get_ComplexTypeNames().size());
 }
-
-int main(int argc, char **argv) {
-   testing::InitGoogleTest(&argc, argv);
-   return RUN_ALL_TESTS();
-}
