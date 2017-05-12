@@ -2,6 +2,10 @@
 
 #include <fstream>
 
+#include "gflags/gflags.h"
+
+DEFINE_string(output_postfix, "", "Postfix for all generated filenames (i.e. \"generated\" makes type.cpp become type.generated.cpp");
+
 TypeGenerator::TypeGenerator(string outputPath)
 {
 	mOutputPath = outputPath;
@@ -41,7 +45,7 @@ void TypeGenerator::Generate(const XSDElement &element)
 #else
 		"/"
 #endif
-		+ typeName + ".h", ios::out);
+			+ typeName + (FLAGS_output_postfix.length() > 0 ? string(".") : "") + FLAGS_output_postfix + ".h", ios::out);
 	header << "#ifndef __" << typeName << "__" << endl;
 	header << "#define __" << typeName << "__" << endl << endl;
 	if (mNamespace.length() > 0) header << "namespace " << mNamespace << endl << "{" << endl;
