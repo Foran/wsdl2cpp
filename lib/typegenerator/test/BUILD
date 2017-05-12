@@ -5,7 +5,7 @@ cc_test(
     "typeGeneratorUnitTests.cpp",
   ],
   deps = [
-    "@gtest//:main",
+    "@gtest//:gtest_main",
     "//lib/typegenerator:libtypegenerator",
   ],
   copts = [

@@ -5,7 +5,7 @@ cc_test(
     "pathUnitTests.cpp",
   ],
   deps = [
-    "@gtest//:main",
+    "@gtest//:gtest_main",
     "//lib/path:libpath",
   ],
   copts = [
