@@ -34,3 +34,12 @@ bind(
   name = "gflags_nothreads",
   actual = "@com_github_gflags_gflags//:gflags_nothreads",
 )
+
+new_http_archive(
+    name = "cpplint_archive",
+    url = "https://pypi.python.org/packages/source/c/cpplint/cpplint-1.2.2.tar.gz",
+    sha256 = "b2979ff630299293f23c52096e408f2b359e2e26cb5cdf24aed4ce53e4293468",
+    build_file = "thirdparty/cpplint.BUILD",
+    strip_prefix = "cpplint-1.2.2"
+)
+

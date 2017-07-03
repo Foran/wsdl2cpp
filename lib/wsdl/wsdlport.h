@@ -1,5 +1,5 @@
-#ifndef __WSDLPORT_H__
-#define __WSDLPORT_H__
+#ifndef LIB_WSDL_WSDLPORT_H_
+#define LIB_WSDL_WSDLPORT_H_
 
 #include <string>
 
@@ -10,19 +10,19 @@ using namespace std;
 
 class WSDLPort {
 public:
-	WSDLPort(xmlNodePtr node);
-	~WSDLPort();
+    WSDLPort(xmlNodePtr node);
+    ~WSDLPort();
 
-	string get_Name() const;
+    string get_Name() const;
 protected:
-	void Load(xmlNodePtr node);
+    void Load(xmlNodePtr node);
 private:
-	string mName;
+    string mName;
 
-	WSDLPort() = delete;
-	WSDLPort(const WSDLPort &source) = delete;
+    WSDLPort() = delete;
+    WSDLPort(const WSDLPort &source) = delete;
 
-	WSDLPort &operator=(const WSDLPort &source) = delete;
+    WSDLPort &operator=(const WSDLPort &source) = delete;
 };
 
-#endif
+#endif  // LIB_WSDL_WSDLPORT_H_
