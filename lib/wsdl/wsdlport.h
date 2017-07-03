@@ -1,23 +1,21 @@
 #ifndef LIB_WSDL_WSDLPORT_H_
 #define LIB_WSDL_WSDLPORT_H_
 
-#include <string>
-
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
-using namespace std;
+#include <string>
 
 class WSDLPort {
-public:
-    WSDLPort(xmlNodePtr node);
+ public:
+    explicit WSDLPort(xmlNodePtr node);
     ~WSDLPort();
 
     string get_Name() const;
-protected:
+ protected:
     void Load(xmlNodePtr node);
-private:
-    string mName;
+ private:
+    ::std::string mName;
 
     WSDLPort() = delete;
     WSDLPort(const WSDLPort &source) = delete;
