@@ -1,3 +1,9 @@
+/******************************************************************************
+ * Project: wsdl2cpp
+ * File: lib/wsdl/wsdl.h
+ * Author: Ben M. Ward <ben.ward@gmail.com>
+ * Copyright 2012-2017 Ben M. Ward
+ *****************************************************************************/
 #ifndef LIB_WSDL_WSDL_H_
 #define LIB_WSDL_WSDL_H_
 
@@ -11,6 +17,10 @@
 #include "lib/wsdl/wsdlmessage.h"
 #include "lib/wsdl/wsdlporttype.h"
 #include "lib/xsd/xsd.h"
+
+namespace wsdl2cpp {
+namespace lib {
+namespace wsdl {
 
 class WSDL {
  public:
@@ -55,5 +65,9 @@ class WSDL {
     static size_t curl_write_callback(char *ptr, size_t size, size_t nmemb,
                                       void *userdata);
 };
+
+}  // namespace wsdl
+}  // namespace lib
+}  // namespace wsdl2cpp
 
 #endif  // LIB_WSDL_WSDL_H_
