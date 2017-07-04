@@ -1,13 +1,22 @@
-#ifndef __WSDLMESSAGEPART_H__
-#define __WSDLMESSAGEPART_H__
+/******************************************************************************
+ * Project: wsdl2cpp
+ * File: lib/wsdl/wsdlmessagepart.h
+ * Author: Ben M. Ward <ben.ward@gmail.com>
+ * Copyright 2012-2017 Ben M. Ward
+ *****************************************************************************/
+#ifndef LIB_WSDL_WSDLMESSAGEPART_H_
+#define LIB_WSDL_WSDLMESSAGEPART_H_
+
+#include <libxml/parser.h>
+#include <libxml/tree.h>
+#include <string.h>
 
 #include <string>
 #include <vector>
 
-#include <string.h>
-
-#include <libxml/parser.h>
-#include <libxml/tree.h>
+namespace wsdl2cpp {
+namespace lib {
+namespace wsdl {
 
 class WSDLMessagePart {
  public:
@@ -28,4 +37,8 @@ class WSDLMessagePart {
     WSDLMessagePart operator=(const WSDLMessagePart &source) const;
 };
 
-#endif
+}  // namespace wsdl
+}  // namespace lib
+}  // namespace wsdl2cpp
+
+#endif  // LIB_WSDL_WSDLMESSAGEPART_H_

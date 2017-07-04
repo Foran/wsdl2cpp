@@ -4,34 +4,31 @@
  * Author: Ben M. Ward <ben.ward@gmail.com>
  * Copyright 2012-2017 Ben M. Ward
  *****************************************************************************/
-#include "wsdlport.h"
+#include "lib/wsdl/wsdlport.h"
+
+#include <string>
 
 namespace wsdl2cpp {
 namespace lib {
 namespace wsdl {
 
-WSDLPort::WSDLPort(xmlNodePtr node)
-{
-	Load(node);
+WSDLPort::WSDLPort(::xmlNodePtr node) {
+    Load(node);
 }
 
-WSDLPort::~WSDLPort()
-{
-
+WSDLPort::~WSDLPort() {
 }
 
-string WSDLPort::get_Name() const
-{
-	return mName;
+::std::string WSDLPort::get_Name() const {
+    return mName;
 }
 
-void WSDLPort::Load(xmlNodePtr node)
-{
-	xmlChar *name = xmlGetProp(node, (const xmlChar *)"name");
-	if (name != nullptr) {
-		mName = (char *)name;
-		xmlFree(name);
-	}
+void WSDLPort::Load(::xmlNodePtr node) {
+    ::xmlChar *name = ::xmlGetProp(node, (const ::xmlChar *)"name");
+    if (name != nullptr) {
+        mName = reinterpret_cast<char *>(name);
+        ::xmlFree(name);
+    }
 }
 
 }  // namespace wsdl
