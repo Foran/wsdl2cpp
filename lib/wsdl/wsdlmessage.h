@@ -4,15 +4,15 @@
  * Author: Ben M. Ward <ben.ward@gmail.com>
  * Copyright 2012-2017 Ben M. Ward
  *****************************************************************************/
-#ifndef __WSDLMESSAGE_H__
-#define __WSDLMESSAGE_H__
-
-#include <string>
-#include <vector>
-#include <map>
+#ifndef LIB_WSDL_WSDLMESSAGE_H_
+#define LIB_WSDL_WSDLMESSAGE_H_
 
 #include <libxml/parser.h>
 #include <libxml/tree.h>
+
+#include <map>
+#include <string>
+#include <vector>
 
 #include "lib/wsdl/wsdlmessagepart.h"
 
@@ -45,4 +45,4 @@ class WSDLMessage {
 }  // namespace lib
 }  // namespace wsdl2cpp
 
-#endif
+#endif  // LIB_WSDL_WSDLMESSAGE_H_

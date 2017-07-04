@@ -18,10 +18,10 @@ namespace wsdl {
 
 class WSDLPort {
  public:
-    explicit WSDLPort(xmlNodePtr node);
+    explicit WSDLPort(::xmlNodePtr node);
     ~WSDLPort();
 
-    string get_Name() const;
+    ::std::string get_Name() const;
  protected:
     void Load(xmlNodePtr node);
  private:
