@@ -18,5 +18,5 @@ before_install:
   - sudo dpkg -i bazel_0.4.4-linux-x86_64.deb
 
 script:
-  - bazel build //...
+  - bazel run @cpplint_archive//:cpplint $(find $(pwd) | grep -E "[.](h|cpp)$")
   - bazel test //... --test_output=streamed
