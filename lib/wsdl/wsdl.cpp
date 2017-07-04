@@ -17,6 +17,9 @@ namespace wsdl2cpp {
 namespace lib {
 namespace wsdl {
 
+using ::wsdl2cpp::lib::path::Path;
+using ::wsdl2cpp::lib::xsd::XSD;
+
 WSDL::WSDL(::std::string filename) {
     Load(filename);
 }
@@ -69,7 +72,7 @@ WSDL::~WSDL() {
 ::std::vector<::std::string> WSDL::get_TypeNamespaces() {
     ::std::vector<::std::string> retval;
 
-    for (::std::map<::std::string, XSD *>::iterator
+    for (::std::map<::std::string, ::wsdl2cpp::lib::xsd::XSD *>::iterator
          i = mTypes.begin(); i != mTypes.end(); i++) {
         retval.push_back(i->first);
     }
@@ -85,7 +88,7 @@ WSDLPortType& WSDL::get_PortType(::std::string name) const {
     return *(const_cast<WSDL *>(this)->mPortTypes[name]);
 }
 
-XSDElement& WSDL::get_Type(::std::string name) const {
+::wsdl2cpp::lib::xsd::XSDElement& WSDL::get_Type(::std::string name) const {
     ::std::string elementName = name;
     ::std::string ns = "";
     size_t pos = name.find_first_of(':');
@@ -129,7 +132,7 @@ size_t WSDL::curl_write_callback(char *ptr, size_t size, size_t nmemb,
     return retval;
 }
 
-void WSDL::Load(::string filename) {
+void WSDL::Load(::std::string filename) {
     Path path(filename);
     ::std::string buffer = FetchFile(path);
     ::xmlDoc *doc = ::xmlReadMemory(buffer.c_str(), buffer.length(),
@@ -217,7 +220,7 @@ void WSDL::LoadTypes(::xmlNodePtr node) {
                 if (sub_node->type == ::XML_ELEMENT_NODE &&
                     !::xmlStrcmp(sub_node->name,
                                  (const ::xmlChar *)"schema")) {
-                    XSD *schema = new XSD(sub_node, mPath.get_UNC());
+                    XSD *schema = new XSD(sub_node, Path(mPath.get_UNC()));
                     if (schema != nullptr) {
                         if (schema->get_Namespace().length() > 0) {
                             mTypes[schema->get_Namespace()] = schema;

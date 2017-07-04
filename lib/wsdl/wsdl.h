@@ -34,7 +34,7 @@ class WSDL {
     ::std::vector<::std::string> get_TypeNamespaces();
     WSDLMessage& get_Message(::std::string name) const;
     WSDLPortType& get_PortType(::std::string name) const;
-    XSDElement& get_Type(::std::string name) const;
+    ::wsdl2cpp::lib::xsd::XSDElement& get_Type(::std::string name) const;
 
  protected:
     void Load(::std::string filename);
@@ -47,16 +47,16 @@ class WSDL {
     void LoadBindings(xmlNodePtr node);
     void LoadPorts(xmlNodePtr node);
     void LoadServices(xmlNodePtr node);
-    ::std::string FetchFile(const Path &unc) const;
+    ::std::string FetchFile(const ::wsdl2cpp::lib::path::Path &unc) const;
 
  private:
-    ::std::map<::std::string, XSD *> mTypes;
+    ::std::map<::std::string, ::wsdl2cpp::lib::xsd::XSD *> mTypes;
     ::std::map<::std::string, WSDLMessage *> mMessages;
     ::std::map<::std::string, WSDLPortType *> mPortTypes;
     ::std::vector<::std::string> mBindings;
     ::std::vector<::std::string> mPorts;
     ::std::vector<::std::string> mServices;
-    Path mPath;
+    ::wsdl2cpp::lib::path::Path mPath;
 
     WSDL();
     WSDL(const WSDL &source);

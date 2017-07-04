@@ -1,29 +1,41 @@
-#ifndef __TYPEGENERATOR_H__
-#define __TYPEGENERATOR_H__
+/******************************************************************************
+ * Project: wsdl2cpp
+ * File: lib/typegenerator/typegenerator.h
+ * Author: Ben M. Ward <ben.ward@gmail.com>
+ * Copyright 2012-2017 Ben M. Ward
+ *****************************************************************************/
+#ifndef LIB_TYPEGENERATOR_TYPEGENERATOR_H_
+#define LIB_TYPEGENERATOR_TYPEGENERATOR_H_
 
 #include <string>
 
 #include "lib/xsd/xsdelement.h"
 
-using namespace std;
+namespace wsdl2cpp {
+namespace lib {
+namespace typegenerator {
 
-class TypeGenerator
-{
-public:
-	TypeGenerator(string outputPath);
-	TypeGenerator(string outputPath, string ns);
-	TypeGenerator(const TypeGenerator &source);
-	~TypeGenerator();
+using ::wsdl2cpp::lib::xsd::XSDElement;
 
-	TypeGenerator &operator=(const TypeGenerator &source);
+class TypeGenerator {
+ public:
+    explicit TypeGenerator(::std::string outputPath);
+    TypeGenerator(::std::string outputPath, ::std::string ns);
+    TypeGenerator(const TypeGenerator &source);
+    ~TypeGenerator();
 
-	void Generate(const XSDElement &element);
-protected:
-private:
-	string mOutputPath;
-	string mNamespace;
-	TypeGenerator() = delete;
+    TypeGenerator &operator=(const TypeGenerator &source);
 
+    void Generate(const XSDElement &element);
+
+ private:
+    ::std::string mOutputPath;
+    ::std::string mNamespace;
+    TypeGenerator() = delete;
 };
 
-#endif
+}  // namespace typegenerator
+}  // namespace lib
+}  // namespace wsdl2cpp
+
+#endif  // LIB_TYPEGENERATOR_TYPEGENERATOR_H_

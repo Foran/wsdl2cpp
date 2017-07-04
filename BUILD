@@ -2,7 +2,6 @@ cc_binary(
   name = "wsdl2cpp",
   srcs = [
     "main.cpp",
-    "main.h",
   ],
   copts = [
     "-I/usr/include/libxml2",
