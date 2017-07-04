@@ -9,23 +9,23 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
-using namespace std;
-
 class WSDLMessagePart {
-	public:
-		WSDLMessagePart(xmlNodePtr node);
-		~WSDLMessagePart();
-		
-		string get_Name() const;
-		string get_Element() const;
-	protected:
-		void Load(xmlNodePtr node);
-	private:
-		string mName;
-		string mElement;
-		WSDLMessagePart();
-		WSDLMessagePart(const WSDLMessagePart &source);
-		WSDLMessagePart operator=(const WSDLMessagePart &source) const;
+ public:
+    explicit WSDLMessagePart(xmlNodePtr node);
+    ~WSDLMessagePart();
+
+    ::std::string get_Name() const;
+    ::std::string get_Element() const;
+
+ protected:
+    void Load(xmlNodePtr node);
+
+ private:
+    ::std::string mName;
+    ::std::string mElement;
+    WSDLMessagePart();
+    WSDLMessagePart(const WSDLMessagePart &source);
+    WSDLMessagePart operator=(const WSDLMessagePart &source) const;
 };
 
 #endif
