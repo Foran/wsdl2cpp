@@ -4,16 +4,15 @@
  * Author: Ben M. Ward <ben.ward@gmail.com>
  * Copyright 2012-2017 Ben M. Ward
  *****************************************************************************/
-#ifndef __WSDLOPERATION_H__
-#define __WSDLOPERATION_H__
+#ifndef LIB_WSDL_WSDLOPERATION_H_
+#define LIB_WSDL_WSDLOPERATION_H_
 
+#include <libxml/parser.h>
+#include <libxml/tree.h>
 #include <string.h>
 
 #include <string>
 #include <vector>
-
-#include <libxml/parser.h>
-#include <libxml/tree.h>
 
 namespace wsdl2cpp {
 namespace lib {
@@ -48,6 +47,6 @@ class WSDLOperation {
 
 }  // namespace wsdl
 }  // namespace lib
-}  // namespace wsdl3cpp
+}  // namespace wsdl2cpp
 
-#endif
+#endif  // LIB_WSDL_WSDLOPERATION_H_
