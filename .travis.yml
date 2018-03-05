@@ -14,8 +14,8 @@ addons:
       - pkg-config
 
 before_install:
-  - wget https://github.com/bazelbuild/bazel/releases/download/0.4.4/bazel_0.4.4-linux-x86_64.deb
-  - sudo dpkg -i bazel_0.4.4-linux-x86_64.deb
+  - wget https://github.com/bazelbuild/bazel/releases/download/0.11.0/bazel_0.11.0-linux-x86_64.deb
+  - sudo dpkg -i bazel_0.11.0-linux-x86_64.deb
 
 script:
   - bazel run @cpplint_archive//:cpplint $(find $(pwd) | grep -E "[.](h|cpp)$")
