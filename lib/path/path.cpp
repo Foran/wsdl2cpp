@@ -70,7 +70,7 @@ bool Path::operator==(const Path &source) {
     ::std::string retval = "";
     char path[FILENAME_MAX];
 
-    if (GetCurrentDir(path, sizeof(path)) > 0) {
+    if (GetCurrentDir(path, sizeof(path)) != nullptr) {
         retval = path;
 #ifdef _WIN32
         retval += '\\';
